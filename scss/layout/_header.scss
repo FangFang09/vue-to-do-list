@@ -1,0 +1,16 @@
+@use "../base";
+
+header {
+    background-color: base.$blue100;
+}
+
+.nav-list {
+    display: flex;
+    justify-content: center;
+}
+
+.nav-item {
+    a {
+        @include base.title;
+    }
+}

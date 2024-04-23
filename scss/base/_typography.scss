@@ -1,0 +1,64 @@
+@use "./color";
+
+@mixin title {
+    font: {
+        family: "Roboto", sans-serif;
+        size: 24px;
+        weight: 500;
+    }
+
+    color:color.$dark;
+    text-transform: capitalize;
+}
+
+@mixin subtitle {
+    font: {
+        family: "Roboto", sans-serif;
+        size: 20px;
+        weight: 500;
+    }
+
+    color:color.$dark;
+    text-transform: capitalize;
+}
+
+@mixin paragraph {
+    font: {
+        family: "Roboto", sans-serif;
+        size: 16px;
+        weight: 400;
+    }
+
+    color:color.$dark;
+}
+
+@mixin remark {
+    font: {
+        family: "Roboto", sans-serif;
+        size: 16px;
+        weight: 400;
+    }
+
+    color:color.$gray400;
+}
+
+@mixin placeholder {
+    font: {
+        family: "Roboto", sans-serif;
+        size: 16px;
+        weight: 400;
+    }
+
+    color:color.$gray400;
+}
+
+@mixin status {
+    font: {
+        family: "Roboto", sans-serif;
+        size: 24px;
+        weight: 400;
+        style: italic;
+    }
+
+    color:color.$gray300;
+}

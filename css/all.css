@@ -1,0 +1,42 @@
+* {
+  box-sizing: border-box;
+  outline: 1px solid coral;
+}
+
+body {
+  margin: 0;
+}
+
+ul,
+li {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+}
+
+body {
+  background-color: #E1E1E1;
+}
+
+header {
+  background-color: #4A90E2;
+}
+
+.nav-list {
+  display: flex;
+  justify-content: center;
+}
+
+.nav-item a {
+  font-family: "Roboto", sans-serif;
+  font-size: 24px;
+  font-weight: 500;
+  color: #000000;
+  text-transform: capitalize;
+}
+
+/*# sourceMappingURL=all.css.map */

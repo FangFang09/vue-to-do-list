@@ -1,0 +1,10 @@
+$sm-size: 576px;
+$md-size: 768px;
+$lg-size: 992px;
+
+
+@mixin deviceScreen ($screen-size) {
+    @media(min-width:$screen-size) {
+        @content;
+    }
+}
