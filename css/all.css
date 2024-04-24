@@ -22,18 +22,18 @@ a {
   position: relative;
   text-align: center;
 }
-.input-event input {
+.input-event input[type=text] {
   border: 2px solid #C8C8C8;
   width: 100%;
   padding: 19px 0 18px 67px;
   border-radius: 5px;
   font-size: 24px;
 }
-.input-event input::placeholder {
+.input-event input[type=text]::placeholder {
   font-size: 24px;
   color: #C8C8C8;
 }
-.input-event input:focus {
+.input-event input[type=text]:focus {
   outline: 3px solid #4A90E2;
 }
 .input-event .fa-plus {
@@ -41,7 +41,7 @@ a {
   color: #C8C8C8;
   font-size: 24px;
   top: 50%;
-  left: 40px;
+  left: 32px;
   transform: translateY(-50%);
 }
 
@@ -98,6 +98,72 @@ main {
   main {
     padding: 24px 0;
   }
+}
+
+.task-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 24px 32px;
+}
+
+.input-task-title input[type=checkbox] {
+  appearance: none;
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  background-color: #FFFFFF;
+  vertical-align: middle;
+  margin: 0;
+  position: relative;
+}
+.input-task-title input[type=checkbox]:checked:after {
+  content: "\f00c";
+  font-weight: 900;
+  font-family: "Font Awesome 6 Pro";
+  font-size: 24px;
+  color: #4A90E2;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.input-task-title input[type=text] {
+  border: none;
+  background-color: transparent;
+  font-family: "Roboto", sans-serif;
+  font-size: 24px;
+  font-weight: 500;
+  color: #000000;
+  text-transform: capitalize;
+  margin-left: 16px;
+  vertical-align: middle;
+}
+.input-task-title input[type=text]:focus {
+  outline: none;
+}
+
+.icon-container .fa-star,
+.icon-container .fa-pen {
+  font-size: 24px;
+}
+.icon-container .fa-star {
+  margin-right: 32px;
+}
+.icon-container .fa-pen {
+  color: #4A90E2;
+}
+
+.task-body {
+  padding: 23px 72px 24px;
+}
+
+.deadline .content-title > span {
+  font-family: "Roboto", sans-serif;
+  font-size: 20px;
+  font-weight: 500;
+  color: #000000;
+  text-transform: capitalize;
 }
 
 @media (min-width: 768px) {

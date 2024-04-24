@@ -8,3 +8,79 @@ main {
         padding: 24px 0;
     }
 }
+
+.task-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 24px 32px;
+}
+
+.input-task-title {
+    input[type="checkbox"] {
+        appearance: none; //取消預設
+        display: inline-block;
+        width: 24px;
+        height: 24px;
+        background-color: base.$white;
+        vertical-align: middle;
+        margin: 0;
+        position: relative;
+
+        //自訂check勾勾
+        &:checked:after {
+            content: "\f00c";
+            font-weight: 900;
+            font-family: "Font Awesome 6 Pro";
+            font-size: 24px;
+            color: base.$blue100;
+
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+    }
+
+    //type something here
+    input[type="text"] {
+        border: none;
+        background-color: transparent;
+        @include base.title;
+        margin-left: 16px;
+        vertical-align: middle;
+
+        &:focus {
+            outline: none;
+        }
+    }
+}
+
+.icon-container {
+
+    .fa-star,
+    .fa-pen {
+        font-size: 24px;
+    }
+
+    .fa-star {
+        margin-right: 32px;
+    }
+
+    .fa-pen {
+        color: base.$blue100;
+    }
+}
+
+.task-body {
+    padding: 23px 72px 24px;
+}
+
+.deadline {
+    .content-title {
+        >span {
+            @include base.subtitle;
+        }
+    }
+}

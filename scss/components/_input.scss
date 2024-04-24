@@ -5,7 +5,7 @@
     position: relative;
     text-align: center;
 
-    input {
+    input[type="text"] {
         border: 2px solid base.$gray300;
         width: 100%;
         padding: 19px 0 18px 67px;
@@ -27,7 +27,7 @@
         color: base.$gray300;
         font-size: 24px;
         top: 50%;
-        left: 40px;
+        left: 32px;
         transform: translateY(-50%);
     }
 }
