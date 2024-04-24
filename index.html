@@ -19,14 +19,74 @@
 
 <body>
     <header>
-        <nav class="navbar">
+        <nav class="navbar container ">
             <ul class="nav-list">
-                <li class="nav-item "><a href="##">my tasks</a></li>
+                <li class="nav-item "><a href="##" class="active">my tasks</a></li>
                 <li class="nav-item "><a href="##">in progress</a></li>
                 <li class="nav-item "><a href="##">completed</a></li>
             </ul>
         </nav>
     </header>
+    <main>
+        <section class="add-event container">
+            <form action="##" class="add-event-button">
+                <i class="fa-solid fa-plus"></i>
+                <input type="text">
+            </form>
+            <div class="task-header">
+                <form action="##" class="input-task-title">
+                    <input type="checkbox">
+                    <input type="text" placeholder="Type Something Here...">
+                </form>
+                <div class="icon-container">
+                    <i class="fa-regular fa-star"></i>
+                    <i class="fa-solid fa-pen"></i>
+                </div>
+            </div>
+            <div class="task-body">
+                <div class="deadline">
+                    <div class="content-title">
+                        <i class="fa-solid fa-calendar-days"></i>
+                        <span>deadline</span>
+                    </div>
+                    <form action="##">
+                        <input type="date" value="yyyy-mm-dd">
+                        <input type="time" min="00:00" max="23:59">
+                    </form>
+                </div>
+                <div class="add-file">
+                    <div class="content-title">
+                        <i class="fa-regular fa-file"></i>
+                        <span>file</span>
+                    </div>
+                    <div class="file-icon">
+                        <i class="fa-solid fa-square-plus"></i>
+                    </div>
+                </div>
+                <div class="comment">
+                    <div class="content-title">
+                        <i class="fa-regular fa-comment-dots"></i>
+                        <span>comment</span>
+                    </div>
+                    <form action="##">
+                        <textarea name="comment" rows="10"></textarea>
+                    </form>
+                </div>
+            </div>
+            <div class="task-footer">
+                <div class="button-group">
+                    <button class="button cancel-button">
+                        <i class="fa-solid fa-xmark"></i>
+                        <span>cancel</span>
+                    </button>
+                    <button class="button add-button">
+                        <i class="fa-solid fa-plus"></i>
+                        <span>add task</span>
+                    </button>
+                </div>
+            </div>
+        </section>
+    </main>
 
 </body>
 

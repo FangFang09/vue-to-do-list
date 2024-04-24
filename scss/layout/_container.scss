@@ -1,0 +1,8 @@
+@use "../abstracts/breakpoints";
+
+.container {
+    @include breakpoints.deviceScreen (breakpoints.$md-size) {
+        max-width: 620px;
+        margin: 0 auto;
+    }
+}
