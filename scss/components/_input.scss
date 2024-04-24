@@ -1,0 +1,33 @@
+@use "../base";
+
+//add task
+.input-event {
+    position: relative;
+    text-align: center;
+
+    input {
+        border: 2px solid base.$gray300;
+        width: 100%;
+        padding: 19px 0 18px 67px;
+        border-radius: 5px;
+        font-size: 24px;
+
+        &::placeholder {
+            font-size: 24px;
+            color: base.$gray300;
+        }
+
+        &:focus {
+            outline: 3px solid base.$blue100;
+        }
+    }
+
+    .fa-plus {
+        position: absolute;
+        color: base.$gray300;
+        font-size: 24px;
+        top: 50%;
+        left: 40px;
+        transform: translateY(-50%);
+    }
+}

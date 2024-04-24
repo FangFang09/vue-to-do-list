@@ -1,0 +1,10 @@
+@use "../abstracts";
+@use "../base";
+
+main {
+    padding: 24px;
+
+    @include abstracts.deviceScreen (abstracts.$md-size) {
+        padding: 24px 0;
+    }
+}

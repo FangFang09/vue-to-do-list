@@ -18,6 +18,33 @@ a {
   text-decoration: none;
 }
 
+.input-event {
+  position: relative;
+  text-align: center;
+}
+.input-event input {
+  border: 2px solid #C8C8C8;
+  width: 100%;
+  padding: 19px 0 18px 67px;
+  border-radius: 5px;
+  font-size: 24px;
+}
+.input-event input::placeholder {
+  font-size: 24px;
+  color: #C8C8C8;
+}
+.input-event input:focus {
+  outline: 3px solid #4A90E2;
+}
+.input-event .fa-plus {
+  position: absolute;
+  color: #C8C8C8;
+  font-size: 24px;
+  top: 50%;
+  left: 40px;
+  transform: translateY(-50%);
+}
+
 body {
   background-color: #E1E1E1;
 }
@@ -62,6 +89,15 @@ header {
   left: 0;
   right: 0;
   margin: 0 auto;
+}
+
+main {
+  padding: 24px;
+}
+@media (min-width: 768px) {
+  main {
+    padding: 24px 0;
+  }
 }
 
 @media (min-width: 768px) {
