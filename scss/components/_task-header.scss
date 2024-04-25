@@ -20,13 +20,17 @@
         position: relative;
         flex: 0 0 auto;
 
+        &:checked {
+            background-color: base.$blue100;
+        }
+
         //自訂check勾勾
         &:checked:after {
             content: "\f00c";
             font-weight: 900;
             font-family: "Font Awesome 6 Pro";
             font-size: 24px;
-            color: base.$blue100;
+            color: base.$white;
 
             position: absolute;
             top: 50%;
@@ -161,50 +165,197 @@
     }
 }
 
+@mixin task-status {
+    padding: 24px 32px 16px;
+    margin-bottom: 8px;
+    border-radius: 5px;
+}
+
 //task-list
+
 .task-list {
-    .task-header {
-        @include task-header;
+    display: flex;
+    flex-direction: column;
+
+    .task-item:nth-child(1),
+    .task-item:nth-child(2) {
+        @include task-status;
         background-color: base.$yellow100;
+
+        .task-header {
+            @include task-header;
+            border-radius: 0;
+            padding: 0;
+            margin-bottom: 16px;
+
+            display: flex;
+            align-items: center;
+            gap: 0;
+            flex-grow: 1;
+
+            // type something here 
+            input[type="text"] {
+                border: none;
+                background-color: transparent;
+                @include base.subtitle;
+
+                @include abstracts.deviceScreen (abstracts.$md-size) {
+                    @include base.title;
+                }
+
+                flex:1 1 0;
+                width:50%;
+                padding-left: 16px;
+
+                &:focus {
+                    outline: none;
+                }
+            }
+        }
+
+        .fa-star {
+            color: base.$yellow200;
+            font-size: 24px;
+            margin-left: 32px;
+        }
+
+        .fa-pen {
+            font-size: 24px;
+            color: base.$dark;
+            margin-left: 32px;
+        }
     }
 
-    .task-header-title {
-        display: flex;
-        align-items: center;
-        gap: 32px;
-        flex-grow: 1;
+    .task-item:nth-child(3),
+    .task-item:nth-child(4) {
+        @include task-status;
+        background-color: base.$gray100;
 
-        // type something here 
-        input[type="text"] {
-            border: none;
-            background-color: transparent;
-            @include base.subtitle;
+        .task-header {
+            @include task-header;
+            border-radius: 0;
+            padding: 0;
+            margin-bottom: 16px;
 
-            @include abstracts.deviceScreen (abstracts.$md-size) {
-                @include base.title;
+            display: flex;
+            align-items: center;
+            gap: 0;
+            flex-grow: 1;
+
+            // type something here 
+            input[type="text"] {
+                border: none;
+                background-color: transparent;
+                @include base.subtitle;
+
+                @include abstracts.deviceScreen (abstracts.$md-size) {
+                    @include base.title;
+                }
+
+                flex:1 1 0;
+                width:50%;
+                padding-left: 16px;
+
+                &:focus {
+                    outline: none;
+                }
+            }
+        }
+
+        .fa-star {
+            color: base.$yellow200;
+            font-size: 24px;
+            margin-left: 32px;
+        }
+
+        .fa-pen {
+            font-size: 24px;
+            color: base.$dark;
+            margin-left: 32px;
+        }
+    }
+
+    // .task-item:last-child {
+    //     // @include task-header;
+    //     padding: 24px 32px;
+    //     border-radius: 5px;
+    //     background-color: base.$gray100;
+    // }
+
+
+    //完成
+    .completed {
+        padding: 24px 32px;
+        border-radius: 5px;
+        background-color: base.$gray100;
+
+        .task-header {
+            @include task-header;
+            border-radius: 0;
+            padding: 0;
+
+            display: flex;
+            align-items: center;
+            gap: 0;
+            flex-grow: 1;
+
+            // type something here 
+            >span {
+                @include base.subtitle;
+                color: base.$gray500;
+                flex: 1 1 0;
+                width: 50%;
+                padding-left: 16px;
+                text-decoration: line-through;
+
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
             }
 
-            flex:1 1 0;
-            width:50%;
+            // input[type="text"] {
+            //     border: none;
+            //     background-color: transparent;
+            //     @include base.subtitle;
 
-            &:focus {
-                outline: none;
+            //     @include abstracts.deviceScreen (abstracts.$md-size) {
+            //         @include base.title;
+            //     }
+
+            //     flex:1 1 0;
+            //     width:50%;
+            //     margin-left: 16px;
+
+            //     &:focus {
+            //         outline: none;
+            //     }
+            // }
+
+            .fa-star {
+                color: base.$yellow200;
+                font-size: 24px;
+                margin-left: 32px;
+            }
+
+            .fa-pen {
+                font-size: 24px;
+                color: base.$dark;
+                margin-left: 32px;
             }
         }
     }
 
-    .fa-star {
-        color: base.$yellow200;
-        font-size: 24px;
-    }
-
-    .fa-pen {
-        font-size: 24px;
-        color: base.$blue100;
-    }
-
     .task-status {
-        // flex: 0 1 auto;
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        gap: 16px;
+
+        padding-left: 40px;
+
+        >i {
+            color: base.$gray400;
+        }
 
     }
 }
