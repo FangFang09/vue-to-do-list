@@ -35,13 +35,11 @@
             </label>
             <input type="text" id="addTask" placeholder="Add Task">
         </form>
-        <section class="add-event container">
+        <form action="##" class="add-form container">
             <div class="task-header">
-                <form action="##" class="input-task-title">
-                    <input type="checkbox">
+                <input type="checkbox">
+                <div class="task-header-title">
                     <input type="text" placeholder="Type Something Here...">
-                </form>
-                <div class="icon-container">
                     <i class="fa-light fa-star"></i>
                     <i class="fa-solid fa-pen"></i>
                 </div>
@@ -52,10 +50,10 @@
                         <i class="fa-solid fa-calendar-days fa-fw"></i>
                         <span>deadline</span>
                     </div>
-                    <form action="##">
-                        <input type="date" value="yyyy-mm-dd">
-                        <input type="time" min="00:00" max="23:59">
-                    </form>
+                    <div class="date-time">
+                        <input type="date">
+                        <input type="time">
+                    </div>
                 </div>
                 <div class="add-file">
                     <div class="content-title">
@@ -71,24 +69,99 @@
                         <i class="fa-regular fa-comment-dots fa-fw"></i>
                         <span>comment</span>
                     </div>
-                    <form action="##">
-                        <textarea name="comment" rows="10"></textarea>
-                    </form>
+                    <div class="comment-data">
+                        <textarea name="comment" rows="8" placeholder="Type your memo here…"></textarea>
+                    </div>
                 </div>
             </div>
             <div class="task-footer">
                 <div class="button-group">
-                    <button class="button cancel-button">
+                    <button type="reset" class="cancel-button">
                         <i class="fa-solid fa-xmark"></i>
                         <span>cancel</span>
                     </button>
-                    <button class="button add-button">
+                    <button type="submit" class="add-button">
                         <i class="fa-solid fa-plus"></i>
                         <span>add task</span>
                     </button>
                 </div>
             </div>
-        </section>
+        </form>
+        <form action="##" class="edit-form container">
+            <div class="task-header">
+                <input type="checkbox">
+                <div class="task-header-title">
+                    <input type="text" value="Cloud project with Dannie">
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-pen"></i>
+                </div>
+            </div>
+            <div class="task-body">
+                <div class="deadline">
+                    <div class="content-title">
+                        <i class="fa-solid fa-calendar-days fa-fw"></i>
+                        <span>deadline</span>
+                    </div>
+                    <div class="date-time">
+                        <input type="date" value="2018-05-14">
+                        <input type="time" value="14:30">
+                    </div>
+                </div>
+                <div class="edit-file">
+                    <div class="content-title">
+                        <i class="fa-regular fa-file fa-fw"></i>
+                        <span>file</span>
+                    </div>
+                    <div class="file-container">
+                        <div class="upload-data">
+                            <span class="file-name">20180514.zip</span>
+                            <span class="last-updated">uploaded yesterday</span>
+                        </div>
+                        <div class="file-icon">
+                            <i class="fa-solid fa-square-plus"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="comment">
+                    <div class="content-title">
+                        <i class="fa-regular fa-comment-dots fa-fw"></i>
+                        <span>comment</span>
+                    </div>
+                    <div class="comment-data">
+                        <textarea name="comment" rows="8">meet him at Lorence Cafe</textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="task-footer">
+                <div class="button-group">
+                    <button type="reset" class="cancel-button">
+                        <i class="fa-solid fa-xmark"></i>
+                        <span>cancel</span>
+                    </button>
+                    <button type="submit" class="save-button">
+                        <i class="fa-solid fa-plus"></i>
+                        <span>save</span>
+                    </button>
+                </div>
+            </div>
+        </form>
+        <div class="task-list container">
+            <div class="task-header">
+                <input type="checkbox">
+                <div class="task-header-title">
+                    <input type="text" value="Type Something Here...">
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-pen"></i>
+                </div>
+                <div class="task-status">
+                    <i class="fa-solid fa-calendar-days fa-fw"></i>
+                    <date>5/14</date>
+                    <i class="fa-regular fa-file fa-fw"></i>
+                    <i class="fa-regular fa-comment-dots fa-fw"></i>
+                </div>
+            </div>
+
+        </div>
     </main>
 
 </body>

@@ -18,31 +18,9 @@ a {
   text-decoration: none;
 }
 
-.input-event {
-  position: relative;
-  text-align: center;
-}
-.input-event input[type=text] {
-  border: 2px solid #C8C8C8;
-  width: 100%;
-  padding: 19px 0 18px 67px;
-  border-radius: 5px;
-  font-size: 24px;
-}
-.input-event input[type=text]::placeholder {
-  font-size: 24px;
-  color: #C8C8C8;
-}
-.input-event input[type=text]:focus {
-  outline: 3px solid #4A90E2;
-}
-.input-event .fa-plus {
-  position: absolute;
-  color: #C8C8C8;
-  font-size: 24px;
-  top: 50%;
-  left: 32px;
-  transform: translateY(-50%);
+input,
+textarea {
+  border: none;
 }
 
 body {
@@ -92,7 +70,7 @@ header {
 }
 
 main {
-  padding: 24px;
+  padding: 24px 8px;
 }
 @media (min-width: 768px) {
   main {
@@ -100,24 +78,173 @@ main {
   }
 }
 
-.task-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 24px 32px;
+.add-form,
+.edit-form {
+  border-radius: 5px;
+  box-shadow: 0 4px 4px 0 #C8C8C8;
 }
 
-.input-task-title input[type=checkbox] {
+.task-body {
+  padding: 23px 32px 24px 72px;
+  background-color: #F2F2F2;
+}
+
+.content-title {
+  margin-bottom: 8px;
+}
+.content-title > span {
+  font-family: "Roboto", sans-serif;
+  font-size: 20px;
+  font-weight: 500;
+  color: #000000;
+  text-transform: capitalize;
+}
+.content-title > .fa-file {
+  font-size: 18px;
+}
+
+.deadline {
+  margin-bottom: 22px;
+}
+.deadline .date-time {
+  display: flex;
+  gap: 8px;
+  margin-left: 25px;
+}
+.deadline .date-time input[type=date],
+.deadline .date-time input[type=time] {
+  padding: 8px 16px;
+  border-radius: 2px;
+}
+.deadline .date-time input[type=date]:focus,
+.deadline .date-time input[type=time]:focus {
+  outline: 2px solid #4A90E2;
+}
+
+.add-form .add-file {
+  margin-bottom: 22px;
+}
+.add-form .add-file .file-icon {
+  margin-left: 25px;
+}
+.add-form .add-file .file-icon .fa-square-plus {
+  color: #C8C8C8;
+  font-size: 32px;
+}
+.add-form .add-file .file-icon .fa-square-plus:hover {
+  color: #4A90E2;
+}
+
+.comment-data {
+  margin-left: 25px;
+}
+.comment-data textarea {
+  resize: none;
+  width: 100%;
+  padding: 8px 16px;
+  border-radius: 2px;
+  line-height: 24px;
+}
+.comment-data textarea::placeholder {
+  color: #C8C8C8;
+}
+.comment-data textarea:focus {
+  outline: 2px solid #4A90E2;
+}
+
+.edit-form .edit-file {
+  margin-bottom: 22px;
+}
+.edit-form .edit-file .file-container {
+  display: flex;
+  align-items: center;
+  margin-left: 25px;
+  gap: 25px;
+}
+.edit-form .edit-file .upload-data {
+  display: flex;
+  flex-direction: column;
+}
+.edit-form .edit-file .upload-data .file-name {
+  font-family: "Roboto", sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  color: #000000;
+}
+.edit-form .edit-file .upload-data .last-updated {
+  font-family: "Roboto", sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  color: #000000;
+  color: #757575;
+}
+.edit-form .edit-file .file-icon .fa-square-plus {
+  color: #C8C8C8;
+  font-size: 32px;
+}
+.edit-form .edit-file .file-icon .fa-square-plus:hover {
+  color: #4A90E2;
+}
+
+@media (min-width: 768px) {
+  .container {
+    max-width: 620px;
+    margin: 0 auto;
+  }
+}
+
+.input-event {
+  position: relative;
+  border-radius: 5px;
+  margin-bottom: 24px;
+}
+.input-event input[type=text] {
+  border: 2px solid #C8C8C8;
+  width: 100%;
+  padding: 19px 0 18px 67px;
+  border-radius: 5px;
+  font-size: 24px;
+}
+.input-event input[type=text]::placeholder {
+  font-size: 24px;
+  color: #C8C8C8;
+}
+.input-event input[type=text]:focus {
+  outline: 3px solid #4A90E2;
+}
+.input-event .fa-plus {
+  position: absolute;
+  color: #C8C8C8;
+  font-size: 24px;
+  top: 50%;
+  left: 32px;
+  transform: translateY(-50%);
+}
+
+.add-form {
+  margin-bottom: 24px;
+}
+.add-form .task-header {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 16px;
+  padding: 24px 32px;
+  border-radius: 5px 5px 0 0;
+  background-color: #F2F2F2;
+  border-bottom: 3px solid #C8C8C8;
+}
+.add-form .task-header input[type=checkbox] {
   appearance: none;
   display: inline-block;
   width: 24px;
   height: 24px;
   background-color: #FFFFFF;
-  vertical-align: middle;
   margin: 0;
   position: relative;
+  flex: 0 0 auto;
 }
-.input-task-title input[type=checkbox]:checked:after {
+.add-form .task-header input[type=checkbox]:checked:after {
   content: "\f00c";
   font-weight: 900;
   font-family: "Font Awesome 6 Pro";
@@ -128,49 +255,241 @@ main {
   left: 50%;
   transform: translate(-50%, -50%);
 }
-.input-task-title input[type=text] {
+.add-form .task-header-title {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  flex-grow: 1;
+}
+.add-form .task-header-title input[type=text] {
   border: none;
   background-color: transparent;
-  font-family: "Roboto", sans-serif;
-  font-size: 24px;
-  font-weight: 500;
-  color: #000000;
-  text-transform: capitalize;
-  margin-left: 16px;
-  vertical-align: middle;
-}
-.input-task-title input[type=text]:focus {
-  outline: none;
-}
-
-.icon-container .fa-star,
-.icon-container .fa-pen {
-  font-size: 24px;
-}
-.icon-container .fa-star {
-  margin-right: 32px;
-}
-.icon-container .fa-pen {
-  color: #4A90E2;
-}
-
-.task-body {
-  padding: 23px 72px 24px;
-}
-
-.deadline .content-title > span {
   font-family: "Roboto", sans-serif;
   font-size: 20px;
   font-weight: 500;
   color: #000000;
   text-transform: capitalize;
+  flex: 1 1 0;
+  width: 50%;
+}
+@media (min-width: 768px) {
+  .add-form .task-header-title input[type=text] {
+    font-family: "Roboto", sans-serif;
+    font-size: 24px;
+    font-weight: 500;
+    color: #000000;
+    text-transform: capitalize;
+  }
+}
+.add-form .task-header-title input[type=text]:focus {
+  outline: none;
+}
+.add-form .fa-star,
+.add-form .fa-pen {
+  font-size: 24px;
+}
+.add-form .fa-pen {
+  color: #4A90E2;
 }
 
+.edit-form {
+  margin-bottom: 24px;
+}
+.edit-form .task-header {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 16px;
+  padding: 24px 32px;
+  border-radius: 5px 5px 0 0;
+  background-color: #FFF2DC;
+  border-bottom: 3px solid #C8C8C8;
+}
+.edit-form .task-header input[type=checkbox] {
+  appearance: none;
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  background-color: #FFFFFF;
+  margin: 0;
+  position: relative;
+  flex: 0 0 auto;
+}
+.edit-form .task-header input[type=checkbox]:checked:after {
+  content: "\f00c";
+  font-weight: 900;
+  font-family: "Font Awesome 6 Pro";
+  font-size: 24px;
+  color: #4A90E2;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.edit-form .task-header-title {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  flex-grow: 1;
+}
+.edit-form .task-header-title input[type=text] {
+  border: none;
+  background-color: transparent;
+  font-family: "Roboto", sans-serif;
+  font-size: 20px;
+  font-weight: 500;
+  color: #000000;
+  text-transform: capitalize;
+  flex: 1 1 0;
+  width: 50%;
+}
 @media (min-width: 768px) {
-  .container {
-    max-width: 620px;
-    margin: 0 auto;
+  .edit-form .task-header-title input[type=text] {
+    font-family: "Roboto", sans-serif;
+    font-size: 24px;
+    font-weight: 500;
+    color: #000000;
+    text-transform: capitalize;
   }
+}
+.edit-form .task-header-title input[type=text]:focus {
+  outline: none;
+}
+.edit-form .fa-star {
+  color: #F5A623;
+  font-size: 24px;
+}
+.edit-form .fa-pen {
+  font-size: 24px;
+  color: #4A90E2;
+}
+
+.task-list .task-header {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 16px;
+  padding: 24px 32px;
+  border-radius: 5px 5px 0 0;
+  background-color: #FFF2DC;
+}
+.task-list .task-header input[type=checkbox] {
+  appearance: none;
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  background-color: #FFFFFF;
+  margin: 0;
+  position: relative;
+  flex: 0 0 auto;
+}
+.task-list .task-header input[type=checkbox]:checked:after {
+  content: "\f00c";
+  font-weight: 900;
+  font-family: "Font Awesome 6 Pro";
+  font-size: 24px;
+  color: #4A90E2;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.task-list .task-header-title {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  flex-grow: 1;
+}
+.task-list .task-header-title input[type=text] {
+  border: none;
+  background-color: transparent;
+  font-family: "Roboto", sans-serif;
+  font-size: 20px;
+  font-weight: 500;
+  color: #000000;
+  text-transform: capitalize;
+  flex: 1 1 0;
+  width: 50%;
+}
+@media (min-width: 768px) {
+  .task-list .task-header-title input[type=text] {
+    font-family: "Roboto", sans-serif;
+    font-size: 24px;
+    font-weight: 500;
+    color: #000000;
+    text-transform: capitalize;
+  }
+}
+.task-list .task-header-title input[type=text]:focus {
+  outline: none;
+}
+.task-list .fa-star {
+  color: #F5A623;
+  font-size: 24px;
+}
+.task-list .fa-pen {
+  font-size: 24px;
+  color: #4A90E2;
+}
+.task-footer .button-group {
+  display: flex;
+  align-items: center;
+}
+.task-footer .cancel-button,
+.task-footer .add-button,
+.task-footer .save-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 14px;
+  flex: 1 1 0;
+  border: none;
+  padding: 16px 0px;
+}
+.task-footer .cancel-button > span,
+.task-footer .add-button > span,
+.task-footer .save-button > span {
+  font-family: "Roboto", sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  color: #000000;
+  font-size: 24px;
+  text-transform: capitalize;
+}
+.task-footer .cancel-button > i,
+.task-footer .add-button > i,
+.task-footer .save-button > i {
+  font-size: 18px;
+}
+.task-footer .cancel-button {
+  background-color: #FFFFFF;
+  border-radius: 0 0 0 5px;
+}
+.task-footer .cancel-button:hover {
+  background-color: #FDFDFD;
+}
+.task-footer .cancel-button .fa-xmark {
+  color: #D0021B;
+}
+.task-footer .cancel-button > span {
+  color: #D0021B;
+}
+.task-footer .add-button,
+.task-footer .save-button {
+  background-color: #4A90E2;
+  border-radius: 0 0 5px 0;
+}
+.task-footer .add-button:hover,
+.task-footer .save-button:hover {
+  background-color: #3982D7;
+}
+.task-footer .add-button .fa-plus,
+.task-footer .save-button .fa-plus {
+  color: #FFFFFF;
+}
+.task-footer .add-button span,
+.task-footer .save-button span {
+  color: #FFFFFF;
 }
 
 /*# sourceMappingURL=all.css.map */
