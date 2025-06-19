@@ -1,0 +1,74 @@
+@use '@/abstracts/color';
+@use '@/abstracts/font';
+@use '@/abstracts/breakpoints' as *;
+
+@mixin title {
+  font: {
+    family: font.$font-family;
+    size: font.$font-title;
+    weight: font.$weight-medium;
+  }
+
+  color: color.$black;
+  text-transform: capitalize;
+
+  @include deviceScreen($sm-size) {
+    font-size: font.$font-subtitle;
+  }
+}
+
+@mixin subtitle {
+  font: {
+    family: font.$font-family;
+    size: font.$font-subtitle;
+    weight: font.$weight-medium;
+  }
+
+  color: color.$black;
+  text-transform: capitalize;
+
+  @include deviceScreen($sm-size) {
+    font-size: font.$font-paragraph;
+  }
+}
+
+@mixin paragraph {
+  font: {
+    family: font.$font-family;
+    size: font.$font-paragraph;
+    weight: font.$weight-regular;
+  }
+
+  color: color.$black;
+}
+
+@mixin remark {
+  font: {
+    family: font.$font-family;
+    size: font.$font-paragraph;
+    weight: font.$weight-regular;
+  }
+
+  color: color.$grey-5;
+}
+
+@mixin placeholder {
+  font: {
+    family: font.$font-family;
+    size: font.$font-paragraph;
+    weight: font.$weight-regular;
+  }
+
+  color: color.$grey-5;
+}
+
+@mixin status {
+  font: {
+    family: font.$font-family;
+    size: font.$font-title;
+    weight: font.$weight-regular;
+    style: italic;
+  }
+
+  color: color.$grey-3;
+}

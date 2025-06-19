@@ -1,0 +1,7 @@
+$sm-size: 576px;
+
+@mixin deviceScreen($screen-size) {
+  @media (min-width: $screen-size) {
+    @content;
+  }
+}
