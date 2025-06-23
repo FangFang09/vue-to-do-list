@@ -1,13 +1,24 @@
-@use '@/abstracts/color';
-@use '@/abstracts/font';
-@use '@/abstracts/breakpoints' as *;
+@use '../abstracts/color';
+@use '../abstracts/font';
+@use '../abstracts/breakpoints' as *;
 
-@mixin title {
-  font: {
-    family: font.$font-family;
-    size: font.$font-title;
-    weight: font.$weight-medium;
+@mixin title($color) {
+  font-family: font.$font-family;
+  font-size: font.$font-subtitle;
+  font-weight: font.$weight-medium;
+
+  color: $color;
+  text-transform: capitalize;
+
+  @include deviceScreen($sm-size) {
+    font-size: font.$font-title;
   }
+}
+
+@mixin subtitle {
+  font-family: font.$font-family;
+  font-size: font.$font-paragraph;
+  font-weight: font.$weight-medium;
 
   color: color.$black;
   text-transform: capitalize;
@@ -17,58 +28,35 @@
   }
 }
 
-@mixin subtitle {
-  font: {
-    family: font.$font-family;
-    size: font.$font-subtitle;
-    weight: font.$weight-medium;
-  }
-
-  color: color.$black;
-  text-transform: capitalize;
-
-  @include deviceScreen($sm-size) {
-    font-size: font.$font-paragraph;
-  }
-}
-
 @mixin paragraph {
-  font: {
-    family: font.$font-family;
-    size: font.$font-paragraph;
-    weight: font.$weight-regular;
-  }
+  font-family: font.$font-family;
+  font-size: font.$font-paragraph;
+  font-weight: font.$weight-regular;
 
   color: color.$black;
 }
 
 @mixin remark {
-  font: {
-    family: font.$font-family;
-    size: font.$font-paragraph;
-    weight: font.$weight-regular;
-  }
+  font-family: font.$font-family;
+  font-size: font.$font-paragraph;
+  font-weight: font.$weight-regular;
 
   color: color.$grey-5;
 }
 
 @mixin placeholder {
-  font: {
-    family: font.$font-family;
-    size: font.$font-paragraph;
-    weight: font.$weight-regular;
-  }
+  font-family: font.$font-family;
+  font-size: font.$font-paragraph;
+  font-weight: font.$weight-regular;
 
   color: color.$grey-5;
 }
 
 @mixin status {
-  font: {
-    family: font.$font-family;
-    size: font.$font-title;
-    weight: font.$weight-regular;
-    style: italic;
-  }
+  font-family: font.$font-family;
+  font-size: font.$font-title;
+  font-weight: font.$weight-regular;
+  font-style: italic;
 
   color: color.$grey-3;
 }
