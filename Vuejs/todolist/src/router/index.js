@@ -5,12 +5,12 @@ const router = createRouter({
   routes: [
     {
       path: '/',
-      name: 'my-tasks',
+      name: 'myTasks',
       component: () => import('../views/MyTasksView.vue'),
     },
     {
       path: '/in-progress',
-      name: 'in-progress',
+      name: 'inProgress',
       component: () => import('../views/InProgressView.vue'),
     },
     {
