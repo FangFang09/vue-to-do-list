@@ -1,0 +1,61 @@
+@use '../abstracts/color';
+@use '../base/typography' as *;
+
+@mixin button-setting($color) {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 14px;
+  flex: 1 1 0;
+
+  border: none;
+  padding: 16px 0px;
+
+  > span {
+    @include title($color);
+  }
+
+  > i {
+    font-size: 18px;
+  }
+}
+
+@mixin task-header {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 16px;
+  flex: 1 1 0;
+
+  padding: 24px 32px;
+  border-radius: 5px 5px 0 0;
+
+  input[type='checkbox'] {
+    appearance: none; //取消預設
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    background-color: color.$white;
+    margin: 0;
+    position: relative;
+    flex: 0 0 auto;
+
+    &:checked {
+      background-color: color.$primary;
+    }
+
+    // 自訂check勾勾
+    &:checked:after {
+      content: '\f00c';
+      font-weight: 900;
+      font-family: 'Font Awesome 6 Pro';
+      font-size: 24px;
+      color: color.$white;
+
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+  }
+}
