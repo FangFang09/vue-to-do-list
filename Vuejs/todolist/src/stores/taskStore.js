@@ -12,11 +12,15 @@ export const useTaskStore = defineStore('taskStore', () => {
     const completedAndPin = tasks.value.filter((task) => task.isCompleted && task.isPin)
 
     return [
-      ...notCompletedAndNotPin,
       ...notCompletedAndPin,
-      ...completedAndNotPin,
+      ...notCompletedAndNotPin,
       ...completedAndPin,
+      ...completedAndNotPin,
     ]
+  })
+
+  const notCompletedTasksLength = computed(() => {
+    return tasks.value.filter((task) => !task.isCompleted).length
   })
 
   async function createTask(todoInfo) {
@@ -67,5 +71,5 @@ export const useTaskStore = defineStore('taskStore', () => {
     }
   }
 
-  return { sortedTasks, fetchTasks, createTask, updateTask, deleteTask }
+  return { sortedTasks, notCompletedTasksLength, fetchTasks, createTask, updateTask, deleteTask }
 })
