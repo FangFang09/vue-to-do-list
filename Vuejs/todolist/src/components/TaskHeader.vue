@@ -1,32 +1,34 @@
 <script setup>
 import { computed } from 'vue'
 const props = defineProps({
-  modelValue: String,
+  title: String,
   isPin: Boolean,
+  isEdit: Boolean,
 })
 
 const title = computed({
-  get: () => props.modelValue,
-  set: (value) => emit('update:modelValue', value),
+  get: () => props.title,
+  set: (value) => emit('update:title', value),
 })
 
-const emit = defineEmits(['update:modelValue', 'handleTogglePin'])
+const isPin = computed({
+  get: () => props.isPin,
+  set: (value) => emit('update:isPin', value),
+})
 
-function onTogglePin() {
-  emit('handleTogglePin')
+function togglePin() {
+  isPin.value = !isPin.value
 }
+
+const emit = defineEmits(['update:title', 'update:isPin', 'update:isEdit'])
 </script>
 <template>
   <div class="task-header" :class="{ active: isPin }">
     <input type="checkbox" />
     <div class="task-input-title">
       <input type="text" placeholder="Type Something Here" v-model="title" />
-      <i
-        class="fa-star"
-        :class="[isPin ? 'fa-solid active' : 'fa-regular']"
-        @click="onTogglePin"
-      ></i>
-      <i class="fa-solid fa-pen"></i>
+      <i class="fa-star" :class="[isPin ? 'fa-solid active' : 'fa-regular']" @click="togglePin"></i>
+      <i class="fa-pen fa-regular"></i>
     </div>
   </div>
 </template>
@@ -81,7 +83,12 @@ function onTogglePin() {
 
 .fa-pen {
   font-size: 24px;
-  color: $primary;
+  color: $grey-5;
+  transition: color 0.2s;
   cursor: pointer;
+
+  &.active {
+    color: $primary;
+  }
 }
 </style>
