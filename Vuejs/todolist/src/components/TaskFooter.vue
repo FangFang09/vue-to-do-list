@@ -1,15 +1,11 @@
 <script setup>
 const emit = defineEmits(['onCancel'])
-
-function onCancel() {
-  emit('onCancel')
-}
 </script>
 
 <template>
   <div class="task-footer">
     <div class="button-group">
-      <button type="reset" class="cancel-button" @click="onCancel">
+      <button type="reset" class="cancel-button" @click="emit('onCancel')">
         <i class="fa-solid fa-xmark"></i>
         <span>cancel</span>
       </button>
