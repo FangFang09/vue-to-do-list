@@ -1,25 +1,6 @@
 @use '../abstracts/color';
 @use '../base/typography' as *;
 
-@mixin button-setting($color) {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 14px;
-  flex: 1 1 0;
-
-  border: none;
-  padding: 16px 0px;
-
-  > span {
-    @include title($color);
-  }
-
-  > i {
-    font-size: 18px;
-  }
-}
-
 @mixin task-header {
   display: flex;
   justify-content: flex-start;
@@ -58,4 +39,31 @@
       transform: translate(-50%, -50%);
     }
   }
+}
+
+@mixin button-setting($color) {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 14px;
+  flex: 1 1 0;
+
+  border: none;
+  padding: 16px 0px;
+
+  > span {
+    @include title($color);
+  }
+
+  > i {
+    font-size: 18px;
+  }
+}
+
+@mixin task-status {
+  padding: 24px 32px 16px;
+  margin-bottom: 8px;
+  border-radius: 5px;
+  color: color.$grey-5;
+  font-size: 14px;
 }
