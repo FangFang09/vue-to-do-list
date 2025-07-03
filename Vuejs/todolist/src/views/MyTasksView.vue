@@ -4,6 +4,7 @@ import { useTaskStore } from '@/stores/taskStore'
 import { useFileStore } from '@/stores/fileStore'
 import AddTaskInput from '@/components/AddTaskInput.vue'
 import TaskForm from '@/components/TaskForm.vue'
+import TaskItem from '@/components/TaskItem.vue'
 
 const taskStore = useTaskStore()
 
@@ -12,12 +13,12 @@ const isExpanded = ref(true)
 // pin
 const isPinActive = ref(false)
 
-async function togglePinForList(todo) {
+async function onTogglePin(todo) {
   await taskStore.updateTask(todo.id, { ...todo, isPin: !todo.isPin })
 }
 
 // checked
-async function toggleCompletedForList(todo) {
+async function onToggleCompleted(todo) {
   await taskStore.updateTask(todo.id, { ...todo, isCompleted: !todo.isCompleted })
 }
 
@@ -97,7 +98,15 @@ const todoInfo = reactive({
 
   <!-- task-list -->
   <div class="task-list">
-    <div
+    <TaskItem
+      v-for="todo in taskStore.sortedTasks"
+      :key="todo.id"
+      :todo="todo"
+      :class="{ active: todo.isPin }"
+      @toggleCompleted="onToggleCompleted"
+      @togglePin="onTogglePin"
+    />
+    <!-- <div
       class="task-item"
       v-for="todo in taskStore.sortedTasks"
       :key="todo.id"
@@ -126,7 +135,7 @@ const todoInfo = reactive({
           <i class="fa-regular fa-comment-dots fa-fw"></i>
         </span>
       </div>
-    </div>
+    </div> -->
   </div>
   <footer>
     <p class="last-task-number">
