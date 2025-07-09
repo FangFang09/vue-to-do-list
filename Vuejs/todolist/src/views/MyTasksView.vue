@@ -1,5 +1,5 @@
 <script setup>
-import { ref, reactive } from 'vue'
+import { ref } from 'vue'
 import { useTaskStore } from '@/stores/taskStore'
 import { useFileStore } from '@/stores/fileStore'
 import AddTaskInput from '@/components/AddTaskInput.vue'
@@ -8,11 +8,9 @@ import TaskItem from '@/components/TaskItem.vue'
 
 const taskStore = useTaskStore()
 
-const isExpanded = ref(true)
+const isAddButtonExpanded = ref(true)
 
 // pin
-const isPinActive = ref(false)
-
 async function onTogglePin(todo) {
   await taskStore.updateTask(todo.id, { ...todo, isPin: !todo.isPin })
 }
@@ -22,51 +20,60 @@ async function onToggleCompleted(todo) {
   await taskStore.updateTask(todo.id, { ...todo, isCompleted: !todo.isCompleted })
 }
 
+// edit
+const editingId = ref(null)
+function onToggleEditing(taskId) {
+  editingId.value = taskId
+}
+
 const today = new Date()
 const pad = (date) => date.toString().padStart(2, '0')
 const date = ref(`${pad(today.getFullYear())}-${pad(today.getMonth() + 1)}-${pad(today.getDate())}`)
 const time = ref(`${pad(today.getHours())}:${pad(today.getMinutes())}`)
 
-const file = ref({})
+const file = ref(null)
 
 const changeFileHandler = (file) => {
   if (file) {
-    todoInfo.fileName = file.name
+    todoInfo.value.fileName = file.name
     file.value = file
     console.log('檔名是：', file.name)
   } else {
-    todoInfo.fileName = ''
+    todoInfo.value.fileName = ''
   }
 }
 const fileStore = useFileStore()
 async function onSubmit() {
-  const result = await fileStore.uploadFiles(file.value)
-  todoInfo.fileUrl = result.url
-  console.log('result', result)
+  if (file.value) {
+    const result = await fileStore.uploadFiles(file.value)
+    todoInfo.value.fileUrl = result.url
+    console.log('result', result)
+  }
 
-  taskStore.createTask(todoInfo)
+  await taskStore.createTask(todoInfo.value)
   initializeTodoInfo()
-  isExpanded.value = !isExpanded.value
+  isAddButtonExpanded.value = !isAddButtonExpanded.value
 }
 
 function cancelHandler() {
   initializeTodoInfo()
-  isExpanded.value = !isExpanded.value
+  isAddButtonExpanded.value = true
+  editingId.value = null
   console.log('取消')
 }
 
 taskStore.fetchTasks()
 
 function initializeTodoInfo() {
-  todoInfo.title = ''
-  todoInfo.deadlineDate = date
-  todoInfo.deadlineTime = time
-  todoInfo.comment = ''
-  todoInfo.fileName = ''
-  todoInfo.fileUrl = ''
+  todoInfo.value.title = ''
+  todoInfo.value.deadlineDate = date
+  todoInfo.value.deadlineTime = time
+  todoInfo.value.comment = ''
+  todoInfo.value.fileName = ''
+  todoInfo.value.fileUrl = ''
 }
 
-const todoInfo = reactive({
+const todoInfo = ref({
   title: '',
   isCompleted: false,
   isPin: false,
@@ -79,63 +86,33 @@ const todoInfo = reactive({
 </script>
 
 <template>
-  <AddTaskInput v-if="isExpanded" @expand="isExpanded = false" />
+  <AddTaskInput v-if="isAddButtonExpanded" @expand="isAddButtonExpanded = false" />
 
   <!-- add form -->
   <TaskForm
-    v-model:title="todoInfo.title"
-    v-model:isPin="isPinActive"
-    v-model:deadlineDate="todoInfo.deadlineDate"
-    v-model:deadlineTime="todoInfo.deadlineTime"
-    v-model:fileName="todoInfo.fileName"
+    v-model:todo="todoInfo"
     @changeFile="changeFileHandler"
-    v-model:comment="todoInfo.comment"
     @submit="onSubmit"
     @onCancel="cancelHandler"
     v-else
   >
   </TaskForm>
 
+  <!-- edit task -->
+
   <!-- task-list -->
   <div class="task-list">
-    <TaskItem
+    <component
+      :is="editingId === todo.id ? TaskForm : TaskItem"
       v-for="todo in taskStore.sortedTasks"
       :key="todo.id"
       :todo="todo"
       :class="{ active: todo.isPin }"
       @toggleCompleted="onToggleCompleted"
       @togglePin="onTogglePin"
+      @toggleEditing="onToggleEditing"
+      @onCancel="cancelHandler"
     />
-    <!-- <div
-      class="task-item"
-      v-for="todo in taskStore.sortedTasks"
-      :key="todo.id"
-      :class="{ active: todo.isPin }"
-    >
-      <div class="task-item-header">
-        <input type="checkbox" :checked="todo.isCompleted" @change="toggleCompletedForList(todo)" />
-        <input type="text" :value="todo.title" :class="{ active: todo.isCompleted }" disabled />
-        <i
-          class="fa-star"
-          :class="[todo.isPin ? 'fa-solid active' : 'fa-regular']"
-          @click="togglePinForList(todo)"
-        ></i>
-        <i class="fa-light fa-pen"></i>
-      </div>
-      <div class="task-status">
-        <span>
-          <i class="fa-solid fa-calendar-days fa-fw"></i>
-          {{ todo.deadlineDate }}
-        </span>
-        <span>
-          <i class="fa-regular fa-file fa-fw"></i>
-        </span>
-
-        <span v-if="todo.comment">
-          <i class="fa-regular fa-comment-dots fa-fw"></i>
-        </span>
-      </div>
-    </div> -->
   </div>
   <footer>
     <p class="last-task-number">
