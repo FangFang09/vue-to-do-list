@@ -1,41 +1,32 @@
 <script setup>
-const props = defineProps({
+defineProps({
   todo: Object,
 })
 
-const emit = defineEmits(['toggleCompleted', 'togglePin'])
+const emit = defineEmits(['toggleCompleted', 'togglePin', 'toggleEditing'])
 </script>
 <template>
   <div class="task-item">
     <div class="task-item-header">
-      <input
-        type="checkbox"
-        :checked="props.todo.isCompleted"
-        @change="emit('toggleCompleted', props.todo)"
-      />
-      <input
-        type="text"
-        :value="props.todo.title"
-        :class="{ active: props.todo.isCompleted }"
-        disabled
-      />
+      <input type="checkbox" :checked="todo.isCompleted" @change="emit('toggleCompleted', todo)" />
+      <input type="text" :value="todo.title" :class="{ active: todo.isCompleted }" disabled />
       <i
         class="fa-star"
-        :class="[props.todo.isPin ? 'fa-solid active' : 'fa-regular']"
-        @click="emit('togglePin', props.todo)"
+        :class="[todo.isPin ? 'fa-solid active' : 'fa-regular']"
+        @click="emit('togglePin', todo)"
       ></i>
-      <i class="fa-light fa-pen"></i>
+      <i class="fa-regular fa-pen" @click="emit('toggleEditing', todo.id)"></i>
     </div>
     <div class="task-status">
       <span>
         <i class="fa-solid fa-calendar-days fa-fw"></i>
-        {{ props.todo.deadlineDate }}
+        {{ todo.deadlineDate }}
       </span>
       <span>
         <i class="fa-regular fa-file fa-fw"></i>
       </span>
 
-      <span v-if="props.todo.comment">
+      <span v-if="todo.comment">
         <i class="fa-regular fa-comment-dots fa-fw"></i>
       </span>
     </div>
@@ -73,9 +64,6 @@ const emit = defineEmits(['toggleCompleted', 'togglePin'])
     padding-left: 16px;
 
     @include subtitle;
-    // @include deviceScreen($sm-size) {
-    //   @include title($black);
-    // }
 
     &:focus {
       outline: none;
@@ -99,7 +87,7 @@ const emit = defineEmits(['toggleCompleted', 'togglePin'])
   .fa-pen {
     font-size: 24px;
     margin-left: 32px;
-    color: $primary;
+    color: $grey-5;
     cursor: pointer;
   }
 }
