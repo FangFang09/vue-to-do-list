@@ -6,7 +6,7 @@ const props = defineProps({
   deadlineTime: String,
 })
 
-const emit = defineEmits(['update:deadlineDate'])
+const emit = defineEmits(['update:deadlineDate', 'update:deadlineTime'])
 
 const deadlineDate = computed({
   get: () => props.deadlineDate,
