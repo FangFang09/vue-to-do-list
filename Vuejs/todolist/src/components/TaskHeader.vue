@@ -3,7 +3,6 @@ import { computed } from 'vue'
 const props = defineProps({
   title: String,
   isPin: Boolean,
-  isEdit: Boolean,
 })
 
 const title = computed({
@@ -20,7 +19,7 @@ function togglePin() {
   isPin.value = !isPin.value
 }
 
-const emit = defineEmits(['update:title', 'update:isPin', 'update:isEdit'])
+const emit = defineEmits(['update:title', 'update:isPin'])
 </script>
 <template>
   <div class="task-header" :class="{ active: isPin }">
