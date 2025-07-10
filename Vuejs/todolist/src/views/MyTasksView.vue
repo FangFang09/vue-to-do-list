@@ -43,6 +43,7 @@ const changeFileHandler = (file) => {
   }
 }
 const fileStore = useFileStore()
+
 async function onSubmit() {
   if (file.value) {
     const result = await fileStore.uploadFiles(file.value)
@@ -83,6 +84,12 @@ const todoInfo = ref({
   fileName: '',
   fileUrl: '',
 })
+
+async function updateTask(todo) {
+  await taskStore.updateTask(todo.id, todo)
+  isAddButtonExpanded.value = true
+  editingId.value = null
+}
 </script>
 
 <template>
@@ -91,6 +98,7 @@ const todoInfo = ref({
   <!-- add form -->
   <TaskForm
     v-model:todo="todoInfo"
+    mode="add"
     @changeFile="changeFileHandler"
     @submit="onSubmit"
     @onCancel="cancelHandler"
@@ -98,20 +106,22 @@ const todoInfo = ref({
   >
   </TaskForm>
 
-  <!-- edit task -->
-
   <!-- task-list -->
   <div class="task-list">
+    <!-- edit task -->
     <component
       :is="editingId === todo.id ? TaskForm : TaskItem"
       v-for="todo in taskStore.sortedTasks"
       :key="todo.id"
       :todo="todo"
+      @update:todo="taskStore.replaceTask"
+      mode="edit"
       :class="{ active: todo.isPin }"
       @toggleCompleted="onToggleCompleted"
       @togglePin="onTogglePin"
       @toggleEditing="onToggleEditing"
       @onCancel="cancelHandler"
+      @update="updateTask"
     />
   </div>
   <footer>
