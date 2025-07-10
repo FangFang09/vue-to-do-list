@@ -1,4 +1,10 @@
 <script setup>
+defineProps({
+  mode: {
+    type: String,
+    defalut: 'add',
+  },
+})
 const emit = defineEmits(['onCancel'])
 </script>
 
@@ -11,7 +17,7 @@ const emit = defineEmits(['onCancel'])
       </button>
       <button type="submit" class="add-button">
         <i class="fa-solid fa-plus"></i>
-        <span>add task</span>
+        <span>{{ mode === 'add' ? 'add task' : 'save' }}</span>
       </button>
     </div>
   </div>

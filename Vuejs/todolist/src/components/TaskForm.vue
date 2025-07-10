@@ -3,15 +3,27 @@ import TaskHeader from './TaskHeader.vue'
 import TaskBody from './TaskBody.vue'
 import TaskFooter from './TaskFooter.vue'
 
-defineProps({
+const props = defineProps({
   todo: Object,
+  mode: {
+    type: String,
+    default: 'add',
+  },
 })
 
-const emit = defineEmits(['update:todo', 'changeFile', 'submit', 'onCancel'])
+const emit = defineEmits(['update:todo', 'changeFile', 'submit', 'update', 'onCancel'])
+
+function onSubmit() {
+  if (props.mode === 'add') {
+    emit('submit')
+  } else if (props.mode === 'edit') {
+    emit('update', props.todo)
+  }
+}
 </script>
 
 <template>
-  <form action="##" class="add-form" @submit.prevent="emit('submit')">
+  <form action="##" class="add-form" @submit.prevent="onSubmit">
     <TaskHeader
       :title="todo.title"
       @update:title="emit('update:todo', { ...todo, title: $event })"
@@ -27,7 +39,7 @@ const emit = defineEmits(['update:todo', 'changeFile', 'submit', 'onCancel'])
       :comment="todo.comment"
       @update:comment="emit('update:todo', { ...todo, comment: $event })"
     />
-    <TaskFooter @onCancel="emit('onCancel')" />
+    <TaskFooter :mode="mode" @onCancel="emit('onCancel')" />
   </form>
 </template>
 
