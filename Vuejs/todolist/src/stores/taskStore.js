@@ -45,6 +45,14 @@ export const useTaskStore = defineStore('taskStore', () => {
     }
   }
 
+  // 取得該task，並把最新更改賦值
+  function replaceTask(todoInfo) {
+    const index = tasks.value.findIndex((task) => task.id === todoInfo.id)
+    if (index !== -1) {
+      tasks.value[index] = todoInfo
+    }
+  }
+
   async function updateTask(todoId, todoInfo) {
     const { data, error } = await supabase
       .from('todolist')
@@ -60,6 +68,7 @@ export const useTaskStore = defineStore('taskStore', () => {
     }
   }
 
+  // 可以複數
   async function deleteTask(todoId) {
     const { data, error } = await supabase.from('todolist').delete().eq('id', todoId).select()
 
@@ -71,5 +80,13 @@ export const useTaskStore = defineStore('taskStore', () => {
     }
   }
 
-  return { sortedTasks, notCompletedTasksLength, fetchTasks, createTask, updateTask, deleteTask }
+  return {
+    sortedTasks,
+    notCompletedTasksLength,
+    fetchTasks,
+    createTask,
+    replaceTask,
+    updateTask,
+    deleteTask,
+  }
 })
