@@ -47,7 +47,6 @@ const fileStore = useFileStore()
 async function onSubmit() {
   if (file.value) {
     const result = await fileStore.uploadFiles(file.value)
-    todoInfo.value.fileUrl = result.url
     console.log('result', result)
   }
 
@@ -82,7 +81,6 @@ const todoInfo = ref({
   deadlineTime: time,
   comment: '',
   fileName: '',
-  fileUrl: '',
 })
 
 async function updateTask(todo) {
@@ -142,67 +140,6 @@ async function updateTask(todo) {
 
   @include deviceScreen($sm-size) {
     width: 100%;
-  }
-}
-
-.task-item {
-  @include task-status;
-  background-color: $grey-1;
-
-  &.active {
-    background: $pin-bg;
-  }
-}
-
-.task-item-header {
-  @include task-header;
-  border-radius: 0;
-  padding: 0;
-  margin-bottom: 16px;
-
-  display: flex;
-  align-items: center;
-  gap: 0;
-  flex-grow: 1;
-
-  // type something here
-  input[type='text'] {
-    border: none;
-    background-color: transparent;
-
-    flex: 1 1 0;
-    width: 50%;
-    padding-left: 16px;
-
-    @include subtitle;
-    // @include deviceScreen($sm-size) {
-    //   @include title($black);
-    // }
-
-    &:focus {
-      outline: none;
-    }
-    &.active {
-      text-decoration: line-through;
-    }
-  }
-  .fa-star {
-    font-size: 24px;
-    margin-left: 32px;
-    color: $grey-5;
-    transition: color 0.2s;
-    cursor: pointer;
-
-    &.active {
-      color: $pin;
-    }
-  }
-
-  .fa-pen {
-    font-size: 24px;
-    margin-left: 32px;
-    color: $primary;
-    cursor: pointer;
   }
 }
 
