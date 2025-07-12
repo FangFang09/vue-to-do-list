@@ -6,7 +6,7 @@ defineProps({
 const emit = defineEmits(['toggleCompleted', 'togglePin', 'toggleEditing'])
 </script>
 <template>
-  <div class="task-item">
+  <div class="task-item" :class="{ active: todo.isPin }">
     <div class="task-item-header">
       <input type="checkbox" :checked="todo.isCompleted" @change="emit('toggleCompleted', todo)" />
       <input type="text" :value="todo.title" :class="{ active: todo.isCompleted }" disabled />
@@ -15,7 +15,7 @@ const emit = defineEmits(['toggleCompleted', 'togglePin', 'toggleEditing'])
         :class="[todo.isPin ? 'fa-solid active' : 'fa-regular']"
         @click="emit('togglePin', todo)"
       ></i>
-      <i class="fa-regular fa-pen" @click="emit('toggleEditing', todo.id)"></i>
+      <i class="fa-pen fa-regular" @click="emit('toggleEditing', todo.id)"></i>
     </div>
     <div class="task-status">
       <span>
