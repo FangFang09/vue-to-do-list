@@ -23,7 +23,7 @@ async function onToggleCompleted(todo) {
 // edit
 const editingId = ref(null)
 function onToggleEditing(taskId) {
-  editingId.value = taskId
+  editingId.value = editingId.value === taskId ? null : taskId
 }
 
 const today = new Date()
@@ -37,7 +37,6 @@ const changeFileHandler = (file) => {
   if (file) {
     todoInfo.value.fileName = file.name
     file.value = file
-    console.log('檔名是：', file.name)
   } else {
     todoInfo.value.fileName = ''
   }
@@ -55,11 +54,16 @@ async function onSubmit() {
   isAddButtonExpanded.value = !isAddButtonExpanded.value
 }
 
-function cancelHandler() {
-  initializeTodoInfo()
-  isAddButtonExpanded.value = true
-  editingId.value = null
-  console.log('取消')
+async function cancelHandler(mode) {
+  if (mode === 'add') {
+    initializeTodoInfo()
+    isAddButtonExpanded.value = true
+  } else if (mode === 'edit') {
+    await taskStore.fetchTasks()
+    editingId.value = null
+  } else {
+    throw new Error('請確認是否為add或edit的取消')
+  }
 }
 
 taskStore.fetchTasks()
@@ -114,9 +118,9 @@ async function updateTask(todo) {
       :todo="todo"
       @update:todo="taskStore.replaceTask"
       mode="edit"
-      :class="{ active: todo.isPin }"
       @toggleCompleted="onToggleCompleted"
       @togglePin="onTogglePin"
+      :isEditing="editingId === todo.id"
       @toggleEditing="onToggleEditing"
       @onCancel="cancelHandler"
       @update="updateTask"
