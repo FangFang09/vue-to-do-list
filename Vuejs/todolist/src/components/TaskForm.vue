@@ -9,9 +9,17 @@ const props = defineProps({
     type: String,
     default: 'add',
   },
+  isEditing: Boolean,
 })
 
-const emit = defineEmits(['update:todo', 'changeFile', 'submit', 'update', 'onCancel'])
+const emit = defineEmits([
+  'update:todo',
+  'toggleEditing',
+  'changeFile',
+  'submit',
+  'update',
+  'onCancel',
+])
 
 function onSubmit() {
   if (props.mode === 'add') {
@@ -27,6 +35,10 @@ function onSubmit() {
     <TaskHeader
       :title="todo.title"
       @update:title="emit('update:todo', { ...todo, title: $event })"
+      :isPin="todo.isPin"
+      @update:isPin="emit('update:todo', { ...todo, isPin: $event })"
+      :isEditing="isEditing"
+      @toggleEditing="emit('toggleEditing', todo.id)"
     />
     <TaskBody
       :deadlineDate="todo.deadlineDate"
@@ -39,7 +51,7 @@ function onSubmit() {
       :comment="todo.comment"
       @update:comment="emit('update:todo', { ...todo, comment: $event })"
     />
-    <TaskFooter :mode="mode" @onCancel="emit('onCancel')" />
+    <TaskFooter :mode="mode" @onCancel="emit('onCancel', mode)" />
   </form>
 </template>
 
