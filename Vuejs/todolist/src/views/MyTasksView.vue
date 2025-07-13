@@ -48,8 +48,13 @@ async function onSubmit() {
     const result = await fileStore.uploadFiles(file.value)
     console.log('result', result)
   }
+  const cleanedTodoInfo = {
+    ...todoInfo.value,
+    deadlineDate: todoInfo.value.deadlineDate === '' ? null : todoInfo.value.deadlineDate,
+    deadlineTime: todoInfo.value.deadlineTime === '' ? null : todoInfo.value.deadlineTime,
+  }
 
-  await taskStore.createTask(todoInfo.value)
+  await taskStore.createTask(cleanedTodoInfo)
   initializeTodoInfo()
   isAddButtonExpanded.value = !isAddButtonExpanded.value
 }
@@ -74,7 +79,6 @@ function initializeTodoInfo() {
   todoInfo.value.deadlineTime = time
   todoInfo.value.comment = ''
   todoInfo.value.fileName = ''
-  todoInfo.value.fileUrl = ''
 }
 
 const todoInfo = ref({
