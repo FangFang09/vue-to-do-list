@@ -1,6 +1,13 @@
 <script setup>
-defineProps({
+import { computed } from 'vue'
+const props = defineProps({
   todo: Object,
+})
+
+const mmdd = computed(() => {
+  if (!props.todo.deadlineDate) return ''
+  const dateArray = props.todo.deadlineDate.split('-')
+  return `${dateArray[1]}/${dateArray[2]}`
 })
 
 const emit = defineEmits(['toggleCompleted', 'togglePin', 'toggleEditing'])
@@ -18,11 +25,11 @@ const emit = defineEmits(['toggleCompleted', 'togglePin', 'toggleEditing'])
       <i class="fa-pen fa-regular" @click="emit('toggleEditing', todo.id)"></i>
     </div>
     <div class="task-status">
-      <span>
+      <span v-if="todo.deadlineDate">
         <i class="fa-solid fa-calendar-days fa-fw"></i>
-        {{ todo.deadlineDate }}
+        {{ mmdd }}
       </span>
-      <span>
+      <span v-if="todo.fileName">
         <i class="fa-regular fa-file fa-fw"></i>
       </span>
 
@@ -89,6 +96,13 @@ const emit = defineEmits(['toggleCompleted', 'togglePin', 'toggleEditing'])
     margin-left: 32px;
     color: $grey-5;
     cursor: pointer;
+  }
+}
+
+.task-status {
+  margin-left: 40px;
+  > span {
+    margin-right: 16px;
   }
 }
 </style>
