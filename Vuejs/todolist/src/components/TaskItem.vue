@@ -44,9 +44,37 @@ const emit = defineEmits(['toggleCompleted', 'togglePin', 'toggleEditing'])
 .task-item {
   @include task-status;
   background-color: $grey-1;
+  position: relative;
 
   &.active {
     background: $pin-bg;
+  }
+
+  // 拖曳點點點
+  &::before {
+    display: none;
+    content: '. . .';
+    height: fit-content;
+    color: $grey-3;
+    font-size: 22px;
+    font-weight: bold;
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    transform-origin: 50% 50%;
+    transform: rotate(90deg);
+  }
+
+  &:hover::before {
+    display: block;
+    cursor: grab;
+  }
+
+  &:active::before {
+    cursor: -webkit-grabbing;
+    cursor: grabbing;
   }
 }
 
