@@ -5,6 +5,7 @@ import { useFileStore } from '@/stores/fileStore'
 import AddTaskInput from '@/components/AddTaskInput.vue'
 import TaskForm from '@/components/TaskForm.vue'
 import TaskItem from '@/components/TaskItem.vue'
+import draggable from 'vuedraggable'
 
 const taskStore = useTaskStore()
 
@@ -45,11 +46,17 @@ const fileStore = useFileStore()
 
 async function onSubmit() {
   if (file.value) {
-    const result = await fileStore.uploadFiles(file.value)
-    console.log('result', result)
+    await fileStore.uploadFiles(file.value)
   }
 
-  await taskStore.createTask(todoInfo.value)
+  const cleanedTodoInfo = {
+    ...todoInfo.value,
+    deadlineDate: todoInfo.value.deadlineDate === '' ? null : todoInfo.value.deadlineDate,
+    deadlineTime: todoInfo.value.deadlineTime === '' ? null : todoInfo.value.deadlineTime,
+    order: taskStore.sortedTasks.length,
+  }
+
+  await taskStore.createTask(cleanedTodoInfo)
   initializeTodoInfo()
   isAddButtonExpanded.value = !isAddButtonExpanded.value
 }
@@ -74,7 +81,6 @@ function initializeTodoInfo() {
   todoInfo.value.deadlineTime = time
   todoInfo.value.comment = ''
   todoInfo.value.fileName = ''
-  todoInfo.value.fileUrl = ''
 }
 
 const todoInfo = ref({
@@ -85,6 +91,7 @@ const todoInfo = ref({
   deadlineTime: time,
   comment: '',
   fileName: '',
+  order: null,
 })
 
 async function updateTask(todo) {
@@ -108,28 +115,40 @@ async function updateTask(todo) {
   >
   </TaskForm>
 
-  <!-- task-list -->
   <div class="task-list">
     <!-- edit task -->
-    <component
-      :is="editingId === todo.id ? TaskForm : TaskItem"
-      v-for="todo in taskStore.sortedCompletedTasks"
-      :key="todo.id"
-      :todo="todo"
-      @update:todo="taskStore.replaceTask"
-      mode="edit"
-      @toggleCompleted="onToggleCompleted"
-      @togglePin="onTogglePin"
-      :isEditing="editingId === todo.id"
-      @toggleEditing="onToggleEditing"
-      @onCancel="cancelHandler"
-      @update="updateTask"
-    />
+    <draggable
+      :modelValue="taskStore.sortedCompletedTasks"
+      @update:modelValue="taskStore.upsertTasks"
+      item-key="id"
+      ghost-class="ghost-item"
+      :animation="500"
+      chosen-class="chosen-item"
+      drag-class="drag-item"
+    >
+      <template #item="{ element: todo }">
+        <div class="task-item-wrapper">
+          <component
+            :is="editingId === todo.id ? TaskForm : TaskItem"
+            :key="todo.id"
+            :todo="todo"
+            @update:todo="taskStore.replaceTask"
+            mode="edit"
+            @toggleCompleted="onToggleCompleted"
+            @togglePin="onTogglePin"
+            :isEditing="editingId === todo.id"
+            @toggleEditing="onToggleEditing"
+            @onCancel="cancelHandler"
+            @update="updateTask"
+          />
+        </div>
+      </template>
+    </draggable>
   </div>
   <footer>
     <p class="last-task-number">
       {{ taskStore.completedTasksLength }}
-      {{ taskStore.completedTasksLength > 1 ? 'tasks' : 'task' }} left
+      {{ taskStore.completedTasksLength > 1 ? 'tasks' : 'task' }} completed
     </p>
   </footer>
 </template>
@@ -145,6 +164,14 @@ async function updateTask(todo) {
   @include deviceScreen($sm-size) {
     width: 100%;
   }
+}
+
+.ghost-item {
+  opacity: 0.7;
+}
+
+.drag-item {
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
 }
 
 // 數量
