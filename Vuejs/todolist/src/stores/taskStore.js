@@ -6,10 +6,18 @@ export const useTaskStore = defineStore('taskStore', () => {
   const tasks = ref([])
 
   const sortedTasks = computed(() => {
-    const notCompletedAndNotPin = tasks.value.filter((task) => !task.isCompleted && !task.isPin)
-    const notCompletedAndPin = tasks.value.filter((task) => !task.isCompleted && task.isPin)
-    const completedAndNotPin = tasks.value.filter((task) => task.isCompleted && !task.isPin)
-    const completedAndPin = tasks.value.filter((task) => task.isCompleted && task.isPin)
+    const notCompletedAndNotPin = tasks.value
+      .filter((task) => !task.isCompleted && !task.isPin)
+      .sort((a, b) => b.order - a.order)
+    const notCompletedAndPin = tasks.value
+      .filter((task) => !task.isCompleted && task.isPin)
+      .sort((a, b) => b.order - a.order)
+    const completedAndNotPin = tasks.value
+      .filter((task) => task.isCompleted && !task.isPin)
+      .sort((a, b) => b.order - a.order)
+    const completedAndPin = tasks.value
+      .filter((task) => task.isCompleted && task.isPin)
+      .sort((a, b) => b.order - a.order)
 
     return [
       ...notCompletedAndPin,
@@ -19,10 +27,24 @@ export const useTaskStore = defineStore('taskStore', () => {
     ]
   })
   const sortedNotCompletedTasks = computed(() => {
-    return tasks.value.filter((task) => !task.isCompleted)
+    const notCompletedAndNotPin = tasks.value
+      .filter((task) => !task.isCompleted && !task.isPin)
+      .sort((a, b) => b.order - a.order)
+    const notCompletedAndPin = tasks.value
+      .filter((task) => !task.isCompleted && task.isPin)
+      .sort((a, b) => b.order - a.order)
+
+    return [...notCompletedAndPin, ...notCompletedAndNotPin]
   })
   const sortedCompletedTasks = computed(() => {
-    return tasks.value.filter((task) => task.isCompleted)
+    const completedAndNotPin = tasks.value
+      .filter((task) => task.isCompleted && !task.isPin)
+      .sort((a, b) => b.order - a.order)
+    const completedAndPin = tasks.value
+      .filter((task) => task.isCompleted && task.isPin)
+      .sort((a, b) => b.order - a.order)
+
+    return [...completedAndPin, ...completedAndNotPin]
   })
 
   const notCompletedTasksLength = computed(() => {
@@ -78,6 +100,25 @@ export const useTaskStore = defineStore('taskStore', () => {
     }
   }
 
+  async function upsertTasks(newTasks) {
+    const newOrderTasks = newTasks.map((task, index, array) => {
+      return { ...task, order: array.length - index }
+    })
+
+    const targetArray = newOrderTasks.map(({ id, order }) => {
+      return { id, order }
+    })
+
+    const { data, error } = await supabase.from('todolist').upsert(targetArray).select()
+    console.log(targetArray)
+    if (error) {
+      console.log('排序失敗', error.message)
+    } else {
+      console.log('排序成功', data)
+      await fetchTasks()
+    }
+  }
+
   // 可以複數
   async function deleteTask(todoId) {
     const { data, error } = await supabase.from('todolist').delete().eq('id', todoId).select()
@@ -101,5 +142,6 @@ export const useTaskStore = defineStore('taskStore', () => {
     replaceTask,
     updateTask,
     deleteTask,
+    upsertTasks,
   }
 })
