@@ -58,12 +58,8 @@ function onSubmit() {
 <style lang="scss" scoped>
 .add-form {
   margin: 0 auto 24px;
-  width: 80%;
+  width: 100%;
   border-radius: 5px;
   box-shadow: 0 4px 4px 0 $grey-3;
-
-  @include deviceScreen($sm-size) {
-    width: 100%;
-  }
 }
 </style>
