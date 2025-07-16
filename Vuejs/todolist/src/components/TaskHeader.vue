@@ -51,8 +51,12 @@ const emit = defineEmits(['update:title', 'update:isPin', 'toggleEditing'])
 .task-input-title {
   display: flex;
   align-items: center;
-  gap: 32px;
+  gap: 20px;
   flex-grow: 1;
+
+  @include deviceScreen($sm-size) {
+    gap: 32px;
+  }
 
   // type something here
   input[type='text'] {
@@ -75,7 +79,7 @@ const emit = defineEmits(['update:title', 'update:isPin', 'toggleEditing'])
 }
 
 .fa-star {
-  font-size: 24px;
+  font-size: 16px;
   color: $grey-5;
   transition: color 0.2s;
   cursor: pointer;
@@ -83,16 +87,24 @@ const emit = defineEmits(['update:title', 'update:isPin', 'toggleEditing'])
   &.active {
     color: $pin;
   }
+  @include deviceScreen($sm-size) {
+    font-size: 24px;
+    margin-left: 32px;
+  }
 }
 
 .fa-pen {
-  font-size: 24px;
+  font-size: 16px;
   color: $grey-5;
   transition: color 0.2s;
   cursor: pointer;
 
   &.active {
     color: $primary;
+  }
+
+  @include deviceScreen($sm-size) {
+    font-size: 24px;
   }
 }
 </style>

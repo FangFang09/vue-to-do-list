@@ -108,8 +108,8 @@ const emit = defineEmits(['toggleCompleted', 'togglePin', 'toggleEditing'])
     }
   }
   .fa-star {
-    font-size: 24px;
-    margin-left: 32px;
+    font-size: 16px;
+    margin-left: 24px;
     color: $grey-5;
     transition: color 0.2s;
     cursor: pointer;
@@ -117,13 +117,23 @@ const emit = defineEmits(['toggleCompleted', 'togglePin', 'toggleEditing'])
     &.active {
       color: $pin;
     }
+
+    @include deviceScreen($sm-size) {
+      font-size: 24px;
+      margin-left: 32px;
+    }
   }
 
   .fa-pen {
-    font-size: 24px;
-    margin-left: 32px;
+    font-size: 16px;
+    margin-left: 24px;
     color: $grey-5;
     cursor: pointer;
+
+    @include deviceScreen($sm-size) {
+      font-size: 24px;
+      margin-left: 32px;
+    }
   }
 }
 
