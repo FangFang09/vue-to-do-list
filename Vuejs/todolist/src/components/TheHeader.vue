@@ -9,7 +9,6 @@ const route = useRoute()
     <nav class="navbar-container">
       <ul class="nav-list">
         <li class="nav-item">
-          <!-- TODO:active -->
           <router-link :to="{ name: 'myTasks' }" :class="route.name === 'myTasks' ? 'active' : ''"
             >my tasks</router-link
           >
