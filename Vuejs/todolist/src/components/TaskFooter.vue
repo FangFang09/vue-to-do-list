@@ -11,7 +11,7 @@ const emit = defineEmits(['onCancel'])
 <template>
   <div class="task-footer">
     <div class="button-group">
-      <button type="reset" class="cancel-button" @click="emit('onCancel')">
+      <button type="button" class="cancel-button" @click="emit('onCancel')">
         <i class="fa-solid fa-xmark"></i>
         <span>cancel</span>
       </button>
