@@ -18,5 +18,6 @@ body {
 main {
   max-width: 620px;
   margin: 0 auto;
+  width: 80%;
 }
 </style>
