@@ -115,7 +115,7 @@ async function updateTask(todo) {
   >
   </TaskForm>
 
-  <div class="task-list">
+  <div class="task-list" v-if="taskStore.sortedCompletedTasks.length">
     <!-- edit task -->
     <draggable
       :modelValue="taskStore.sortedCompletedTasks"
@@ -145,6 +145,9 @@ async function updateTask(todo) {
       </template>
     </draggable>
   </div>
+  <div v-else>
+    <p class="no-todo">There are no completed tasks yet.</p>
+  </div>
   <footer>
     <p class="last-task-number">
       {{ taskStore.completedTasksLength }}
@@ -158,12 +161,7 @@ async function updateTask(todo) {
 .task-list {
   display: flex;
   flex-direction: column;
-  width: 80%;
   margin: 0 auto;
-
-  @include deviceScreen($sm-size) {
-    width: 100%;
-  }
 }
 
 .ghost-item {
@@ -174,18 +172,23 @@ async function updateTask(todo) {
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
 }
 
+.no-todo {
+  text-align: center;
+  @include subtitle;
+}
+
 // 數量
 footer {
   margin: 0 auto;
-  width: 80%;
+  padding-left: 16px;
+
   @include deviceScreen($sm-size) {
-    width: 100%;
+    padding-left: 32px;
   }
 
   .last-task-number {
     @include status;
     font-size: 20px;
-    padding-left: 32px;
 
     @include deviceScreen($sm-size) {
       @include status;
