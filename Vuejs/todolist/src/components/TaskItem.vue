@@ -1,5 +1,9 @@
 <script setup>
 import { computed } from 'vue'
+import { useTaskStore } from '@/stores/taskStore'
+
+const taskStore = useTaskStore()
+
 const props = defineProps({
   todo: Object,
 })
@@ -11,16 +15,26 @@ const mmdd = computed(() => {
 })
 
 const emit = defineEmits(['toggleCompleted', 'togglePin', 'toggleEditing'])
+
+function togglePin() {
+  if (taskStore.isUpdatingSet.has(props.todo.id)) return
+  emit('togglePin', props.todo)
+}
 </script>
 <template>
   <div class="task-item" :class="{ active: todo.isPin }">
     <div class="task-item-header">
-      <input type="checkbox" :checked="todo.isCompleted" @change="emit('toggleCompleted', todo)" />
+      <input
+        type="checkbox"
+        :checked="todo.isCompleted"
+        :disabled="taskStore.isUpdatingSet.has(props.todo.id)"
+        @change="emit('toggleCompleted', todo)"
+      />
       <input type="text" :value="todo.title" :class="{ active: todo.isCompleted }" disabled />
       <i
         class="fa-star"
         :class="[todo.isPin ? 'fa-solid active' : 'fa-regular']"
-        @click="emit('togglePin', todo)"
+        @click="togglePin"
       ></i>
       <i class="fa-pen fa-regular" @click="emit('toggleEditing', todo.id)"></i>
     </div>
@@ -109,7 +123,7 @@ const emit = defineEmits(['toggleCompleted', 'togglePin', 'toggleEditing'])
   }
   .fa-star {
     font-size: 16px;
-    margin-left: 24px;
+    margin-left: 20px;
     color: $grey-5;
     transition: color 0.2s;
     cursor: pointer;
@@ -126,7 +140,7 @@ const emit = defineEmits(['toggleCompleted', 'togglePin', 'toggleEditing'])
 
   .fa-pen {
     font-size: 16px;
-    margin-left: 24px;
+    margin-left: 20px;
     color: $grey-5;
     cursor: pointer;
 

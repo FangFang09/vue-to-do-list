@@ -5,6 +5,9 @@ import { supabase } from '@/supabase.js'
 export const useTaskStore = defineStore('taskStore', () => {
   const tasks = ref([])
 
+  // 防連續點擊
+  const isUpdatingSet = ref(new Set())
+
   const sortedTasks = computed(() => {
     const notCompletedAndNotPin = tasks.value
       .filter((task) => !task.isCompleted && !task.isPin)
@@ -86,11 +89,15 @@ export const useTaskStore = defineStore('taskStore', () => {
   }
 
   async function updateTask(todoId, todoInfo) {
+    isUpdatingSet.value.add(todoId)
+
     const { data, error } = await supabase
       .from('todolist')
       .update(todoInfo)
       .eq('id', todoId)
       .select()
+
+    isUpdatingSet.value.delete(todoId)
 
     if (error) {
       console.log('更新失敗', error.message)
@@ -143,5 +150,6 @@ export const useTaskStore = defineStore('taskStore', () => {
     updateTask,
     deleteTask,
     upsertTasks,
+    isUpdatingSet,
   }
 })
