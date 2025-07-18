@@ -31,7 +31,7 @@ function onSubmit() {
 </script>
 
 <template>
-  <form action="##" class="add-form" @submit.prevent="onSubmit">
+  <form action="##" class="task-form" @submit.prevent="onSubmit">
     <TaskHeader
       :title="todo.title"
       @update:title="emit('update:todo', { ...todo, title: $event })"
@@ -56,7 +56,7 @@ function onSubmit() {
 </template>
 
 <style lang="scss" scoped>
-.add-form {
+.task-form {
   margin: 0 auto 24px;
   width: 100%;
   border-radius: 5px;
