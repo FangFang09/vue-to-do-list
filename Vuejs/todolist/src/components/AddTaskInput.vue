@@ -26,14 +26,10 @@ function handleClick() {
 
   input[type='text'] {
     border: 2px solid $grey-3;
-    width: 80%;
+    width: 100%;
     padding: 19px 0 18px 67px;
     border-radius: 5px;
     font-size: 24px;
-
-    @include deviceScreen($sm-size) {
-      width: 100%;
-    }
 
     &::placeholder {
       @include placeholder;
@@ -51,12 +47,8 @@ function handleClick() {
     color: $grey-3;
     font-size: 24px;
     top: 50%;
-    left: 75px;
+    left: 35px;
     transform: translateY(-50%);
-
-    @include deviceScreen($sm-size) {
-      left: 32px;
-    }
   }
 }
 </style>
