@@ -1,5 +1,7 @@
 <script setup>
 import { computed } from 'vue'
+import VueDatePicker from '@vuepic/vue-datepicker'
+import '@vuepic/vue-datepicker/dist/main.css'
 
 const props = defineProps({
   deadlineDate: String,
@@ -26,8 +28,14 @@ const deadlineTime = computed({
       <span>deadline</span>
     </div>
     <div class="date-time">
-      <input type="date" name="deadline-date" v-model="deadlineDate" />
-      <input type="time" name="deadline-time" v-model="deadlineTime" />
+      <VueDatePicker
+        v-model="deadlineDate"
+        format="yyyy/MM/dd"
+        hide-input-icon
+        placeholder="yyyy/MM/dd"
+      >
+      </VueDatePicker>
+      <VueDatePicker v-model="deadlineTime" time-picker hide-input-icon></VueDatePicker>
     </div>
   </div>
 </template>
@@ -63,10 +71,6 @@ const deadlineTime = computed({
 
   > span {
     @include subtitle;
-  }
-
-  > .fa-file {
-    font-size: 18px;
   }
 }
 </style>
