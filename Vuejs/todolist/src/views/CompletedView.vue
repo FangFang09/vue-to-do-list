@@ -6,6 +6,7 @@ import AddTaskInput from '@/components/AddTaskInput.vue'
 import TaskForm from '@/components/TaskForm.vue'
 import TaskItem from '@/components/TaskItem.vue'
 import draggable from 'vuedraggable'
+import dayjs from 'dayjs'
 
 const taskStore = useTaskStore()
 
@@ -51,7 +52,10 @@ async function onSubmit() {
 
   const cleanedTodoInfo = {
     ...todoInfo.value,
-    deadlineDate: todoInfo.value.deadlineDate === '' ? null : todoInfo.value.deadlineDate,
+    deadlineDate:
+      todoInfo.value.deadlineDate === ''
+        ? null
+        : dayjs(todoInfo.value.deadlineDate).format('YYYY-MM-DD'),
     deadlineTime: todoInfo.value.deadlineTime === '' ? null : todoInfo.value.deadlineTime,
     order: taskStore.sortedTasks.length,
   }
