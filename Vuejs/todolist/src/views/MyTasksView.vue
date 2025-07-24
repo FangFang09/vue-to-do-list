@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from 'vue'
+import { onMounted, ref } from 'vue'
 import { useTaskStore } from '@/stores/taskStore'
 import { useFileStore } from '@/stores/fileStore'
 import AddTaskInput from '@/components/AddTaskInput.vue'
@@ -104,8 +104,11 @@ async function cancelHandler(mode) {
     throw new Error('請確認是否為add或edit的取消')
   }
 }
-
-taskStore.fetchTasks()
+onMounted(async () => {
+  loadingStore.startLoading('Loading...')
+  await taskStore.fetchTasks()
+  loadingStore.stopLoading()
+})
 
 function initializeTodoInfo() {
   todoInfo.value.title = ''
