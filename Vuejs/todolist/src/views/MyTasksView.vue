@@ -7,19 +7,35 @@ import TaskForm from '@/components/TaskForm.vue'
 import TaskItem from '@/components/TaskItem.vue'
 import draggable from 'vuedraggable'
 import dayjs from 'dayjs'
+import { useLoadingStore } from '../stores/loadingStore'
 
 const taskStore = useTaskStore()
+const loadingStore = useLoadingStore()
 
 const isAddButtonExpanded = ref(true)
 
 // pin
 async function onTogglePin(todo) {
-  await taskStore.updateTask(todo.id, { ...todo, isPin: !todo.isPin })
+  try {
+    loadingStore.startLoading('Processing...')
+    await taskStore.updateTask(todo.id, { ...todo, isPin: !todo.isPin })
+  } catch (error) {
+    console.log(error.message)
+  } finally {
+    loadingStore.stopLoading()
+  }
 }
 
 // checked
 async function onToggleCompleted(todo) {
-  await taskStore.updateTask(todo.id, { ...todo, isCompleted: !todo.isCompleted })
+  try {
+    loadingStore.startLoading('Processing...')
+    await taskStore.updateTask(todo.id, { ...todo, isCompleted: !todo.isCompleted })
+  } catch (error) {
+    console.log(error.message)
+  } finally {
+    loadingStore.stopLoading()
+  }
 }
 
 // edit
@@ -58,10 +74,16 @@ async function onSubmit() {
     deadlineTime: todoInfo.value.deadlineTime === '' ? null : todoInfo.value.deadlineTime,
     order: taskStore.sortedTasks.length,
   }
-
-  await taskStore.createTask(cleanedTodoInfo)
-  initializeTodoInfo()
-  isAddButtonExpanded.value = !isAddButtonExpanded.value
+  try {
+    loadingStore.startLoading('Processing...')
+    await taskStore.createTask(cleanedTodoInfo)
+    initializeTodoInfo()
+    isAddButtonExpanded.value = !isAddButtonExpanded.value
+  } catch (error) {
+    console.log(error.message)
+  } finally {
+    loadingStore.stopLoading()
+  }
 }
 
 async function cancelHandler(mode) {
@@ -69,8 +91,15 @@ async function cancelHandler(mode) {
     initializeTodoInfo()
     isAddButtonExpanded.value = true
   } else if (mode === 'edit') {
-    await taskStore.fetchTasks()
-    editingId.value = null
+    try {
+      loadingStore.startLoading('Processing...')
+      await taskStore.fetchTasks()
+      editingId.value = null
+    } catch (error) {
+      console.log(error.message)
+    } finally {
+      loadingStore.stopLoading()
+    }
   } else {
     throw new Error('請確認是否為add或edit的取消')
   }
@@ -98,9 +127,16 @@ const todoInfo = ref({
 })
 
 async function updateTask(todo) {
-  await taskStore.updateTask(todo.id, todo)
-  isAddButtonExpanded.value = true
-  editingId.value = null
+  try {
+    loadingStore.startLoading('Processing...')
+    await taskStore.updateTask(todo.id, todo)
+    isAddButtonExpanded.value = true
+    editingId.value = null
+  } catch (error) {
+    console.log(error.message)
+  } finally {
+    loadingStore.stopLoading()
+  }
 }
 </script>
 
