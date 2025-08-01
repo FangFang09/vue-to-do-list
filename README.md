@@ -1,60 +1,48 @@
-# t7.1
+# Vue Todo List
 
-## 說明
+使用 Vue 3 Composition API 搭配 supabase 開發的 Todo List ，支援使用者登入、任務管理與分類切換。
+[Live Demo](https://fangfang09.netlify.app/)
 
-當你切到這個版的時，恭喜你，切完這個版，你就可以進入 JS 的世界囉!!
+## 技術
 
-切這個版是為了 JS 之後要做 todo list 而切的版
+- Vue 3 (composition api)
+- Pinia (模組化狀態管理)
+- sass
+- Vite
+- Vue Router
+- supabase
+  - 資料庫：儲存待辦事項
+  - Auth：Google 第三方登入驗證
+- vuedraggable(拖曳排序)
+- TypeScript (部份檔案已轉換)
 
-所以，切版要求沒有任何限制。
+## login 功能說明
 
-做你想做的吧。
+- 使用 google OAuth 登入
+- 使用 supabase Auth 進行使用者驗證
+- 登入後才能使用待辦功能，未登入則自動導向登入頁
+- 增加登出功能
 
-版切完，也只要上傳，即可進入 JS 囉
+## Todo-List 功能說明
 
-## 需求說明
+- 新增待辦事項
+- 分類待辦事項
+  - 全部 (My Tasks)
+  - 進行中 (In Progress)
+  - 已完成 (Completed)
+- 編輯 / 取消編輯待辦事項
+- 標註待辦事項為完成
+- 標註待辦事項為重要
+- 拖曳待辦事項調整順序 (vuedraggable 套件)
+- 載入中顯示 Loading 動畫與訊息
+- 遵行 RESTful API 與 supabase 串接
+- Pinia 狀態管理
+  - authStore：管理登入狀態與使用者資訊
+  - taskStore：管理待辦事項
+  - loadingStore：管理全域載入狀態
 
-### Story
+## 設計稿來源
 
-1. 使用者可以新增待辦事項
-2. 使用者可以編輯已存在的待辦事項
-3. 使用者可以將已存在的待辦事項標註「完成」
-4. 使用者可以將已存在的待辦事項標註「重要」
-5. 使用者瀏覽待辦事項時，可以區分「全部」、「進行中」、「已完成」
-6. 使用者可以調整將已存在的待辦事項的順序
-7. 使用者可以取消編輯已存在的待辦事項
+本專案依照第一屆 THE F2E - Todo List 的設計稿進行開發
 
-### 設計稿
-
-這是第一屆 THE F2E 的第一關設計稿
-
-[設計稿](https://hexschool.github.io/THE_F2E_Design/todolist/)
-
-這個設計稿，比較適合現代化的設計稿功能
-
-設計風格也較符合當代美感
-
-## 切版練習說明
-
-1. 開 branch ，用自己的英文名字命名
-2. 找到設計稿
-3. 切版，要 RWD
-4. 上傳 branch
-
-## JS 練習說明
-
-1. 將原本的切版原碼，各別複製到 3 個資料夾，並以下面名稱命名:
-   - [Vanilla JS](http://vanilla-js.com/)
-   - [jQuery](https://jquery.com/)
-   - [Vuejs](https://vuejs.org/)
-2. 各個框架用 cdn 載入即可
-3. 用不同的框架實作 todo list 的程式部份。
-4. 用 Jest 測試 Vanilla JS
-5. 注意 commit 的程式碼範圍大小、commit message 與內容是否吻合
-6. 上傳 branch (還是自己的英文名字)
-
-最後，會留下三種 JS 寫法的 todo list 並且不會留下純切版的 code
-
-## 提醒
-
-可以切換 branch 看看別人切的 code。
+[設計稿連結](https://hexschool.github.io/THE_F2E_Design/todolist/)
