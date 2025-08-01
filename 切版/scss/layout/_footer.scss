@@ -1,8 +1,0 @@
-@use "../base";
-
-footer {
-    .last-task-number {
-        @include base.status;
-        padding: 8px 32px;
-    }
-}
