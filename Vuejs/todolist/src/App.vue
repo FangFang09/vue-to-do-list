@@ -1,11 +1,17 @@
 <script setup>
-import { RouterView } from 'vue-router'
+import { useRoute, RouterView } from 'vue-router'
 import TheHeader from '@/components/TheHeader.vue'
 import LoadingEffect from '@/components/LoadingEffect.vue'
+import { useAuthStore } from '@/stores/authStore'
+
+const route = useRoute()
+
+const authStore = useAuthStore()
+authStore.getUserFromSupabase()
 </script>
 
 <template>
-  <TheHeader />
+  <TheHeader v-if="route.name !== 'loginView' && authStore.user" />
   <main>
     <LoadingEffect />
     <RouterView />
