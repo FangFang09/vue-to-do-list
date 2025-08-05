@@ -23,6 +23,13 @@ onMounted(() => {
 })
 </script>
 <template>
-  <div id="g_id_signin"></div>
+  <div class="google-container">
+    <div id="g_id_signin"></div>
+  </div>
 </template>
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.google-container {
+  display: flex;
+  justify-content: center;
+}
+</style>
