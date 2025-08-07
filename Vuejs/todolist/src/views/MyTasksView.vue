@@ -7,10 +7,12 @@ import TaskForm from '@/components/TaskForm.vue'
 import TaskItem from '@/components/TaskItem.vue'
 import draggable from 'vuedraggable'
 import dayjs from 'dayjs'
-import { useLoadingStore } from '../stores/loadingStore'
+import { useLoadingStore } from '@/stores/loadingStore'
+import { useAuthStore } from '@/stores/authStore'
 
 const taskStore = useTaskStore()
 const loadingStore = useLoadingStore()
+const authStore = useAuthStore()
 
 const isAddButtonExpanded = ref(true)
 
@@ -106,6 +108,8 @@ async function cancelHandler(mode) {
 }
 onMounted(async () => {
   loadingStore.startLoading('Loading...')
+  await authStore.getUserFromSupabase()
+  todoInfo.value.user_id = authStore.user.id
   await taskStore.fetchTasks()
   loadingStore.stopLoading()
 })
@@ -119,6 +123,7 @@ function initializeTodoInfo() {
 }
 
 const todoInfo = ref({
+  user_id: null,
   title: '',
   isCompleted: false,
   isPin: false,
