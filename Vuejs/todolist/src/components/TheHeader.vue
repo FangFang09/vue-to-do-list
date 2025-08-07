@@ -1,11 +1,15 @@
 <script setup>
 import { useRoute, RouterLink } from 'vue-router'
+import UserMenu from '@/components/UserMenu.vue'
 
 const route = useRoute()
 </script>
 
 <template>
   <header class="header-container">
+    <div class="top-header">
+      <UserMenu />
+    </div>
     <nav class="navbar-container">
       <ul class="nav-list">
         <li class="nav-item">
@@ -36,6 +40,8 @@ const route = useRoute()
 .header-container {
   background-color: $primary;
   margin-bottom: 24px;
+
+  position: relative;
 }
 
 .navbar-container {
@@ -53,7 +59,7 @@ const route = useRoute()
 
   a {
     display: block;
-    padding: 23px 0 25px 0;
+    padding: 15px 0;
 
     text-align: center;
     position: relative;
@@ -78,5 +84,12 @@ const route = useRoute()
       margin: 0 auto;
     }
   }
+}
+
+.top-header {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 8px;
 }
 </style>
