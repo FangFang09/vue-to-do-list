@@ -8,7 +8,35 @@ export const useAuthStore = defineStore('authStore', () => {
   const user = ref(null)
   const idToken = ref(localStorage.getItem('accessToken') || null)
 
-  const isLoggedIn = computed(() => !!idToken.value)
+  const isLoggedIn = computed(() => !!user.value)
+  const router = useRouter()
+
+  function setUser(newUser, token) {
+    user.value = newUser
+
+    if (token) {
+      idToken.value = token
+      localStorage.setItem('accessToken', token)
+    }
+  }
+  const avatarUrl = computed(() => {
+    return user.value.user_metadata.avatar_url
+  })
+
+  async function getUserFromSupabase() {
+    if (user.value) return
+    const {
+      data: { user: fetchedUser },
+    } = await supabase.auth.getUser()
+
+    if (fetchedUser) {
+      user.value = fetchedUser
+      console.log('取得user', fetchedUser)
+    } else {
+      console.log('尚未登入或 token 失效')
+      clearAuthData()
+    }
+  }
 
   async function handleSignInWithGoogle(response) {
     const { data, error } = await supabase.auth.signInWithIdToken({
@@ -18,25 +46,11 @@ export const useAuthStore = defineStore('authStore', () => {
     if (error) {
       console.log(error.message)
     } else {
-      idToken.value = response.credential
-      localStorage.setItem('accessToken', response.credential)
+      console.log('登入成功', data)
+      setUser(data.user, response.credential)
       router.push({ name: 'myTasks' })
     }
   }
-
-  // function loginWithGoogle(response) {
-  //   idToken.value = response.credential
-  //   localStorage.setItem('accessToken', response.credential)
-
-  //   const decodePayload = decodeJwtResponse(response.credential)
-
-  //   user.value = {
-  //     id: decodePayload.sub,
-  //     name: decodePayload.given_name,
-  //     email: decodePayload.email,
-  //     picture: decodePayload.picture,
-  //   }
-  // }
 
   function clearAuthData() {
     user.value = null
@@ -44,7 +58,6 @@ export const useAuthStore = defineStore('authStore', () => {
     localStorage.removeItem('accessToken')
   }
 
-  const router = useRouter()
   async function signOut() {
     const { error } = await supabase.auth.signOut()
     if (error) {
@@ -56,5 +69,15 @@ export const useAuthStore = defineStore('authStore', () => {
     }
   }
 
-  return { user, idToken, isLoggedIn, handleSignInWithGoogle, clearAuthData, signOut }
+  return {
+    user,
+    idToken,
+    isLoggedIn,
+    setUser,
+    avatarUrl,
+    getUserFromSupabase,
+    handleSignInWithGoogle,
+    clearAuthData,
+    signOut,
+  }
 })
