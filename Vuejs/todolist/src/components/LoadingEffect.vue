@@ -21,6 +21,8 @@ const loadingStore = useLoadingStore()
   width: 100%;
   height: 100%;
 
+  background-color: rgba($black, 0.3);
+
   display: flex;
   align-items: center;
   justify-content: center;
@@ -99,7 +101,7 @@ const loadingStore = useLoadingStore()
 .loading-message {
   color: $dark-blue;
   font-size: $font-title;
-  font-weight: 500;
+  font-weight: 600;
   text-align: center;
   margin-left: 16px;
   letter-spacing: 0.5px;
