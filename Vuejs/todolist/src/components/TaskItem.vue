@@ -51,29 +51,29 @@ async function onConfirmDelete(taskId) {
 }
 </script>
 <template>
-  <div class="task-item" :class="{ active: todo.isPin }" v-bind="$attrs">
+  <div class="task-item" :class="{ active: todo.is_pin }" v-bind="$attrs">
     <div class="task-item-header">
       <input
         type="checkbox"
-        :checked="todo.isCompleted"
+        :checked="todo.is_completed"
         :disabled="taskStore.isUpdatingSet.has(props.todo.id)"
         @change="emit('toggleCompleted', todo)"
       />
-      <input type="text" :value="todo.title" :class="{ active: todo.isCompleted }" disabled />
+      <input type="text" :value="todo.title" :class="{ active: todo.is_completed }" disabled />
       <i class="fa-regular fa-trash-can" @click="openDialog"></i>
       <i
         class="fa-star"
-        :class="[todo.isPin ? 'fa-solid active' : 'fa-regular']"
+        :class="[todo.is_pin ? 'fa-solid active' : 'fa-regular']"
         @click="togglePin"
       ></i>
       <i class="fa-pen fa-regular" @click="emit('toggleEditing', todo.id)"></i>
     </div>
     <div class="task-status">
-      <span v-if="todo.deadlineDate">
+      <span v-if="todo.deadline_at">
         <i class="fa-solid fa-calendar-days fa-fw"></i>
         {{ formattedDate }}
       </span>
-      <span v-if="todo.fileName">
+      <span v-if="todo.file_name">
         <i class="fa-regular fa-file fa-fw"></i>
       </span>
 
