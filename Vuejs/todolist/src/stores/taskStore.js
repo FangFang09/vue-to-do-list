@@ -13,16 +13,16 @@ export const useTaskStore = defineStore('taskStore', () => {
 
   const sortedTasks = computed(() => {
     const notCompletedAndNotPin = tasks.value
-      .filter((task) => !task.isCompleted && !task.isPin)
+      .filter((task) => !task.is_completed && !task.is_pin)
       .sort((a, b) => b.order - a.order)
     const notCompletedAndPin = tasks.value
-      .filter((task) => !task.isCompleted && task.isPin)
+      .filter((task) => !task.is_completed && task.is_pin)
       .sort((a, b) => b.order - a.order)
     const completedAndNotPin = tasks.value
-      .filter((task) => task.isCompleted && !task.isPin)
+      .filter((task) => task.is_completed && !task.is_pin)
       .sort((a, b) => b.order - a.order)
     const completedAndPin = tasks.value
-      .filter((task) => task.isCompleted && task.isPin)
+      .filter((task) => task.is_completed && task.is_pin)
       .sort((a, b) => b.order - a.order)
 
     return [
@@ -34,31 +34,31 @@ export const useTaskStore = defineStore('taskStore', () => {
   })
   const sortedNotCompletedTasks = computed(() => {
     const notCompletedAndNotPin = tasks.value
-      .filter((task) => !task.isCompleted && !task.isPin)
+      .filter((task) => !task.is_completed && !task.is_pin)
       .sort((a, b) => b.order - a.order)
     const notCompletedAndPin = tasks.value
-      .filter((task) => !task.isCompleted && task.isPin)
+      .filter((task) => !task.is_completed && task.is_pin)
       .sort((a, b) => b.order - a.order)
 
     return [...notCompletedAndPin, ...notCompletedAndNotPin]
   })
   const sortedCompletedTasks = computed(() => {
     const completedAndNotPin = tasks.value
-      .filter((task) => task.isCompleted && !task.isPin)
+      .filter((task) => task.is_completed && !task.is_pin)
       .sort((a, b) => b.order - a.order)
     const completedAndPin = tasks.value
-      .filter((task) => task.isCompleted && task.isPin)
+      .filter((task) => task.is_completed && task.is_pin)
       .sort((a, b) => b.order - a.order)
 
     return [...completedAndPin, ...completedAndNotPin]
   })
 
   const notCompletedTasksLength = computed(() => {
-    return tasks.value.filter((task) => !task.isCompleted).length
+    return tasks.value.filter((task) => !task.is_completed).length
   })
 
   const completedTasksLength = computed(() => {
-    return tasks.value.filter((task) => task.isCompleted).length
+    return tasks.value.filter((task) => task.is_completed).length
   })
 
   async function createTask(todoInfo) {
