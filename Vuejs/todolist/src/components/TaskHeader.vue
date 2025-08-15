@@ -2,7 +2,7 @@
 import { computed } from 'vue'
 const props = defineProps({
   title: String,
-  isPin: Boolean,
+  is_pin: Boolean,
   isEditing: Boolean,
 })
 
@@ -11,22 +11,22 @@ const title = computed({
   set: (value) => emit('update:title', value),
 })
 
-const isPin = computed({
-  get: () => props.isPin,
-  set: (value) => emit('update:isPin', value),
+const is_pin = computed({
+  get: () => props.is_pin,
+  set: (value) => emit('update:is_pin', value),
 })
 
-const emit = defineEmits(['update:title', 'update:isPin', 'toggleEditing'])
+const emit = defineEmits(['update:title', 'update:is_pin', 'toggleEditing'])
 </script>
 <template>
-  <div class="task-header" :class="{ active: isPin }">
+  <div class="task-header" :class="{ active: is_pin }">
     <input type="checkbox" />
     <div class="task-input-title">
       <input type="text" placeholder="Type Something Here" v-model="title" />
       <i
         class="fa-star"
-        :class="[isPin ? 'fa-solid active' : 'fa-regular']"
-        @click="emit('update:isPin', !isPin)"
+        :class="[is_pin ? 'fa-solid active' : 'fa-regular']"
+        @click="emit('update:is_pin', !is_pin)"
       ></i>
       <i
         class="fa-pen"

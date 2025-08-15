@@ -1,14 +1,14 @@
 <script setup>
 import { computed } from 'vue'
 
-const { fileName } = defineProps({
-  fileName: String,
+const { file_name } = defineProps({
+  file_name: String,
 })
 
-const emit = defineEmits(['update:fileName', 'changeFile'])
+const emit = defineEmits(['update:file_name', 'changeFile'])
 const todoFileName = computed({
-  get: () => fileName,
-  set: (value) => emit('update:fileName', value),
+  get: () => file_name,
+  set: (value) => emit('update:file_name', value),
 })
 
 const date = new Date().toLocaleDateString('en-CA') // 日期格式yyyy-mm-dd
@@ -17,10 +17,10 @@ async function changeFile(event) {
   const file = event.target.files[0]
 
   if (file) {
-    emit('update:fileName', file.name)
+    emit('update:file_name', file.name)
     emit('changeFile', file)
   } else {
-    emit('update:fileName', '')
+    emit('update:file_name', '')
     emit('changeFile', '')
   }
 }
