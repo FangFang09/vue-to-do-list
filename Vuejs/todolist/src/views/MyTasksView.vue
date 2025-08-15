@@ -63,13 +63,9 @@ async function onSubmit() {
   if (file.value) {
     await fileStore.uploadFiles(file.value)
   }
+
   const cleanedTodoInfo = {
     ...todoInfo.value,
-    deadlineDate:
-      todoInfo.value.deadlineDate === ''
-        ? null
-        : dayjs(todoInfo.value.deadlineDate).format('YYYY-MM-DD'),
-    deadlineTime: todoInfo.value.deadlineTime === '' ? null : todoInfo.value.deadlineTime,
     order: taskStore.sortedTasks.length,
   }
   try {
