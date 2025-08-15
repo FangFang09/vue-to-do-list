@@ -4,20 +4,25 @@ import VueDatePicker from '@vuepic/vue-datepicker'
 import '@vuepic/vue-datepicker/dist/main.css'
 
 const props = defineProps({
-  deadlineDate: String,
-  deadlineTime: String,
+  deadline_at: String,
 })
 
-const emit = defineEmits(['update:deadlineDate', 'update:deadlineTime'])
+const emit = defineEmits(['update:deadline_at'])
 
-const deadlineDate = computed({
-  get: () => props.deadlineDate,
-  set: (value) => emit('update:deadlineDate', value),
+const selectedDate = computed({
+  get: () => new Date(props.deadline_at),
+  set: (value) => emit('update:deadline_at', value.toISOString()),
 })
-
-const deadlineTime = computed({
-  get: () => props.deadlineTime,
-  set: (value) => emit('update:deadlineTime', value),
+const selectedTime = computed({
+  get: () => {
+    return { hours: selectedDate.value.getHours(), minutes: selectedDate.value.getMinutes() }
+  },
+  set: (timeObject) => {
+    const updatedDate = new Date(selectedDate.value)
+    updatedDate.setHours(timeObject.hours)
+    updatedDate.setMinutes(timeObject.minutes)
+    emit('update:deadline_at', updatedDate.toISOString())
+  },
 })
 </script>
 
@@ -29,13 +34,12 @@ const deadlineTime = computed({
     </div>
     <div class="date-time">
       <VueDatePicker
-        v-model="deadlineDate"
+        v-model="selectedDate"
         format="yyyy/MM/dd"
         hide-input-icon
-        placeholder="yyyy/MM/dd"
-      >
-      </VueDatePicker>
-      <VueDatePicker v-model="deadlineTime" time-picker hide-input-icon></VueDatePicker>
+        placeholder="yyyy/mm/dd"
+      ></VueDatePicker>
+      <VueDatePicker v-model="selectedTime" time-picker hide-input-icon></VueDatePicker>
     </div>
   </div>
 </template>
