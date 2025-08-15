@@ -5,29 +5,12 @@ import TaskFile from './TaskFile.vue'
 import TaskComment from './TaskComment.vue'
 
 const props = defineProps({
-  deadlineDate: String,
-  deadlineTime: String,
-  fileName: String,
+  deadline_at: String,
+  file_name: String,
   comment: String,
 })
 
-const emit = defineEmits([
-  'update:deadlineDate',
-  'update:deadlineTime',
-  'update:fileName',
-  'changeFile',
-  'update:comment',
-])
-
-const deadlineDate = computed({
-  get: () => props.deadlineDate,
-  set: (value) => emit('update:deadlineDate', value),
-})
-
-const deadlineTime = computed({
-  get: () => props.deadlineTime,
-  set: (value) => emit('update:deadlineTime', value),
-})
+const emit = defineEmits(['update:deadline_at', 'update:file_name', 'changeFile', 'update:comment'])
 
 const comments = computed({
   get: () => props.comment,
@@ -37,10 +20,13 @@ const comments = computed({
 
 <template>
   <div class="task-body">
-    <TaskDeadline v-model:deadlineDate="deadlineDate" v-model:deadlineTime="deadlineTime" />
+    <TaskDeadline
+      :deadline_at="props.deadline_at"
+      @update:deadline_at="emit('update:deadline_at', $event)"
+    />
     <TaskFile
-      :fileName="props.fileName"
-      @update:fileName="emit('update:fileName', $event)"
+      :file_name="props.file_name"
+      @update:file_name="emit('update:file_name', $event)"
       @changeFile="emit('changeFile', $event)"
     />
     <TaskComment v-model:comment="comments" />
