@@ -11,10 +11,11 @@ const props = defineProps({
   todo: Object,
 })
 
-const mmdd = computed(() => {
-  if (!props.todo.deadlineDate) return ''
-  const dateArray = props.todo.deadlineDate.split('-')
-  return `${dateArray[1]}/${dateArray[2]}`
+const formattedDate = computed(() => {
+  if (!props.todo.deadline_at) return ''
+
+  const date = new Date(props.todo.deadline_at)
+  return `${date.getFullYear()}/${date.getMonth() + 1}/${date.getDate()}`
 })
 
 const emit = defineEmits(['toggleCompleted', 'togglePin', 'toggleEditing'])
@@ -70,7 +71,7 @@ async function onConfirmDelete(taskId) {
     <div class="task-status">
       <span v-if="todo.deadlineDate">
         <i class="fa-solid fa-calendar-days fa-fw"></i>
-        {{ mmdd }}
+        {{ formattedDate }}
       </span>
       <span v-if="todo.fileName">
         <i class="fa-regular fa-file fa-fw"></i>
