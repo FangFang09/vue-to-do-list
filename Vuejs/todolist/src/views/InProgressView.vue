@@ -6,7 +6,6 @@ import AddTaskInput from '@/components/AddTaskInput.vue'
 import TaskForm from '@/components/TaskForm.vue'
 import TaskItem from '@/components/TaskItem.vue'
 import draggable from 'vuedraggable'
-import dayjs from 'dayjs'
 import { useLoadingStore } from '@/stores/loadingStore'
 import { useAuthStore } from '@/stores/authStore'
 
