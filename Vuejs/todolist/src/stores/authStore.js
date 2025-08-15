@@ -1,7 +1,6 @@
 import { defineStore } from 'pinia'
 import { ref, computed } from 'vue'
 import { useRouter } from 'vue-router'
-// import { decodeJwtResponse } from '@/utils/decodeJWT.js'
 import { supabase } from '@/supabase.js'
 
 export const useAuthStore = defineStore('authStore', () => {
@@ -28,12 +27,12 @@ export const useAuthStore = defineStore('authStore', () => {
     const {
       data: { user: fetchedUser },
     } = await supabase.auth.getUser()
-
     if (fetchedUser) {
       user.value = fetchedUser
       console.log('取得user', fetchedUser)
     } else {
       console.log('尚未登入或 token 失效')
+      await signOut()
       clearAuthData()
     }
   }
