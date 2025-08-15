@@ -1,6 +1,9 @@
 import { defineStore } from 'pinia'
 import { computed, ref } from 'vue'
 import { supabase } from '@/supabase.js'
+import { useAuthStore } from './authStore'
+
+const authStore = useAuthStore()
 
 export const useTaskStore = defineStore('taskStore', () => {
   const tasks = ref([])
@@ -70,7 +73,9 @@ export const useTaskStore = defineStore('taskStore', () => {
   }
 
   async function fetchTasks() {
-    const { data, error } = await supabase.from('todolist').select('*')
+    const userId = authStore.user.id
+
+    const { data, error } = await supabase.from('todolist').select('*').eq('user_id', userId)
 
     if (error) {
       console.log('讀取失敗', error.message)
@@ -107,16 +112,21 @@ export const useTaskStore = defineStore('taskStore', () => {
     }
   }
 
+  // 排序
   async function upsertTasks(newTasks) {
+    const userId = authStore.user.id
     const newOrderTasks = newTasks.map((task, index, array) => {
-      return { ...task, order: array.length - index }
+      return { ...task, order: array.length - index, user_id: userId }
     })
 
-    const targetArray = newOrderTasks.map(({ id, order }) => {
-      return { id, order }
+    const targetArray = newOrderTasks.map(({ id, order, user_id }) => {
+      return { id, order, user_id }
     })
 
-    const { data, error } = await supabase.from('todolist').upsert(targetArray).select()
+    const { data, error } = await supabase
+      .from('todolist')
+      .upsert(targetArray, { onConflict: ['id', 'user_id'] })
+      .select()
     console.log(targetArray)
     if (error) {
       console.log('排序失敗', error.message)
