@@ -20,7 +20,7 @@ const isAddButtonExpanded = ref(true)
 async function onTogglePin(todo) {
   try {
     loadingStore.startLoading('Processing...')
-    await taskStore.updateTask(todo.id, { ...todo, isPin: !todo.isPin })
+    await taskStore.updateTask(todo.id, { ...todo, is_pin: !todo.is_pin })
   } catch (error) {
     console.log(error.message)
   } finally {
@@ -32,7 +32,7 @@ async function onTogglePin(todo) {
 async function onToggleCompleted(todo) {
   try {
     loadingStore.startLoading('Processing...')
-    await taskStore.updateTask(todo.id, { ...todo, isCompleted: !todo.isCompleted })
+    await taskStore.updateTask(todo.id, { ...todo, is_completed: !todo.is_completed })
   } catch (error) {
     console.log(error.message)
   } finally {
@@ -46,19 +46,16 @@ function onToggleEditing(taskId) {
   editingId.value = editingId.value === taskId ? null : taskId
 }
 
-const today = new Date()
-const pad = (date) => date.toString().padStart(2, '0')
-const date = ref(`${pad(today.getFullYear())}-${pad(today.getMonth() + 1)}-${pad(today.getDate())}`)
-const time = ref(`${pad(today.getHours())}:${pad(today.getMinutes())}`)
+const todayIsoString = new Date().toISOString()
 
 const file = ref(null)
 
 const changeFileHandler = (file) => {
   if (file) {
-    todoInfo.value.fileName = file.name
+    todoInfo.value.file_name = file.name
     file.value = file
   } else {
-    todoInfo.value.fileName = ''
+    todoInfo.value.file_name = ''
   }
 }
 const fileStore = useFileStore()
@@ -107,30 +104,33 @@ async function cancelHandler(mode) {
   }
 }
 onMounted(async () => {
-  loadingStore.startLoading('Loading...')
-  await authStore.getUserFromSupabase()
-  todoInfo.value.user_id = authStore.user.id
-  await taskStore.fetchTasks()
-  loadingStore.stopLoading()
+  try {
+    loadingStore.startLoading('Loading...')
+    await authStore.getUserFromSupabase()
+    todoInfo.value.user_id = authStore.user.id
+    await taskStore.fetchTasks()
+  } catch (e) {
+    alert(e)
+  } finally {
+    loadingStore.stopLoading()
+  }
 })
 
 function initializeTodoInfo() {
   todoInfo.value.title = ''
-  todoInfo.value.deadlineDate = date
-  todoInfo.value.deadlineTime = time
+  todoInfo.value.deadline_at = todayIsoString
   todoInfo.value.comment = ''
-  todoInfo.value.fileName = ''
+  todoInfo.value.file_name = ''
 }
 
 const todoInfo = ref({
   user_id: null,
   title: '',
-  isCompleted: false,
-  isPin: false,
-  deadlineDate: date,
-  deadlineTime: time,
+  is_completed: false,
+  is_pin: false,
+  deadline_at: todayIsoString,
   comment: '',
-  fileName: '',
+  file_name: '',
   order: null,
 })
 
