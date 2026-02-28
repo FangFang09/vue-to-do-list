@@ -1,0 +1,16 @@
+name: Ping Supabase
+# workflow trigger with a schedule
+
+on:
+  schedule:
+    - cron: "0 0 * * *" # 每天 0 點 0 分打一次
+  workflow_dispatch: # 手動也可以執行
+
+jobs:
+  ping-api:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Curl ping API
+        run: |
+          curl -X GET "${{ secrets.PING_URL }}"
