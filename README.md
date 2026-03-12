@@ -1,20 +1,35 @@
 # Vue Todo List
 
 使用 Vue 3 Composition API 搭配 supabase 開發的 Todo List ，支援使用者登入、任務管理與分類切換。
-[Live Demo](https://fangfang09.netlify.app/)
+[Live Demo](https://fangfang09-vue-todo-list.netlify.app/)
 
 ## 技術
 
 - Vue 3 (composition api)
-- Pinia (模組化狀態管理)
-- sass
+- Pinia
+- Sass
 - Vite
 - Vue Router
-- supabase
-  - 資料庫：儲存待辦事項
+- Supabase
+  - 資料庫：待辦事項 CRUD
   - Auth：Google 第三方登入驗證
 - vuedraggable(拖曳排序)
-- TypeScript (部份檔案已轉換)
+
+## 專案架構
+
+```text
+vue-to-do-list/
+├── src/
+│   ├── assets/
+│   ├── components/
+│   ├── router/
+│   ├── stores/
+│   ├── styles/
+│   └── views/
+├── README.md
+├── package.json
+└── .gitignore
+```
 
 ## login 功能說明
 
@@ -35,7 +50,7 @@
 - 標註待辦事項為重要
 - 拖曳待辦事項調整順序 (vuedraggable 套件)
 - 載入中顯示 Loading 動畫與訊息
-- 遵行 RESTful API 與 supabase 串接
+- 遵行 RESTful API 與 Supabase 串接
 - Pinia 狀態管理
   - authStore：管理登入狀態與使用者資訊
   - taskStore：管理待辦事項
