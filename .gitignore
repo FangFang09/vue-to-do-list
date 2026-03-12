@@ -30,3 +30,5 @@ coverage
 *.sw?
 
 *.tsbuildinfo
+
+copilot-instructions.md
