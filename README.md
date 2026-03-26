@@ -1,7 +1,9 @@
 # Vue Todo List
 
 使用 Vue 3 Composition API 搭配 supabase 開發的 Todo List ，支援使用者登入、任務管理與分類切換。
-[Live Demo](https://fangfang09-vue-todo-list.netlify.app/)
+
+[Live Demo (Netlify)](https://fangfang09-vue-todo-list.netlify.app/)
+[Live Demo (Vercel)](https://fang-vue-to-do-list.vercel.app/)
 
 ## 技術
 
